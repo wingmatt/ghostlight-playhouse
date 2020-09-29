@@ -1,5 +1,4 @@
 import { initAuth0 } from '@auth0/nextjs-auth0';
-import config from './config';
 
 export default initAuth0({
   domain: process.env.AUTH0_DOMAIN,
@@ -10,7 +9,7 @@ export default initAuth0({
   postLogoutRedirectUri: 'http://localhost:3000/',
   session: {
     // The secret used to encrypt the cookie.
-    cookieSecret: '<RANDOMLY_GENERATED_SECRET>',
+    cookieSecret: 'XkguNUuwHuvRxi3E3KT6aMnrX0nVkXhi',
     // The cookie lifetime (expiration) in seconds. Set to 8 hours by default.
     cookieLifetime: 60 * 60 * 8,
     // (Optional) The cookie domain this should run on. Leave it blank to restrict it to your domain.
