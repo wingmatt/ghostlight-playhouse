@@ -9,7 +9,7 @@ export default initAuth0({
   postLogoutRedirectUri: 'http://localhost:3000/',
   session: {
     // The secret used to encrypt the cookie.
-    cookieSecret: 'XkguNUuwHuvRxi3E3KT6aMnrX0nVkXhi',
+    cookieSecret: process.env.AUTH0_COOKIE_SECRET,
     // The cookie lifetime (expiration) in seconds. Set to 8 hours by default.
     cookieLifetime: 60 * 60 * 8,
     // (Optional) The cookie domain this should run on. Leave it blank to restrict it to your domain.
