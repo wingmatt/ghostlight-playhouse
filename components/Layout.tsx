@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import { UserProvider } from '../lib/user';
 
 type Props = {
   children: ReactNode
@@ -8,10 +9,12 @@ type Props = {
 }
 
 const Layout = ({
+  user, 
+  loading=false,
   children,
   title = 'TypeScript Next.js Stripe Example',
 }: Props) => (
-  <>
+  <UserProvider value={{ user, loading }}>
     <Head>
       <title>{title}</title>
       <meta charSet="utf-8" />
@@ -66,7 +69,7 @@ const Layout = ({
         .
       </span>
     </div>
-  </>
+  </UserProvider>
 )
 
 export default Layout
