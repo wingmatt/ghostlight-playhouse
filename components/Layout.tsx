@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { UserProvider } from '../lib/user';
 
 type Props = {
+  user: string
+  loading: boolean
   children: ReactNode
   title?: string
 }
