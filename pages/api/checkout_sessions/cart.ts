@@ -28,7 +28,7 @@ export default async function handler(
       const line_items = validateCartItems(inventory, cartItems)
       // Create Checkout Sessions from body params.
       const params: Stripe.Checkout.SessionCreateParams = {
-        submit_type: 'pay',
+        mode: 'subscription',
         payment_method_types: ['card'],
         billing_address_collection: 'auto',
         shipping_address_collection: {
