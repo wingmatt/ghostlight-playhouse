@@ -1,5 +1,7 @@
 import products from '../data/products.json'
+import prices from '../data/prices.json'
 import { useShoppingCart, formatCurrencyString } from 'use-shopping-cart'
+import fetchPriceFromStripe from '../utils/get-stripe-price'
 
 const Products = () => {
   const { addItem, removeItem } = useShoppingCart()
@@ -35,3 +37,17 @@ const Products = () => {
 }
 
 export default Products
+
+export async function getStaticProps() {
+  let priceData = [];
+  prices.map((price) => {
+    priceData.push(fetchPriceFromStripe(price));
+  })
+
+  return {
+    props: {
+      priceData
+    },
+    revalidate: 10
+  }
+}
