@@ -8,8 +8,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
  * The important thing is that the product info is loaded from somewhere trusted
  * so you know the pricing information is accurate.
  */
-import { validateCartItems } from 'use-shopping-cart/src/serverUtil'
-import inventory from '../../../data/products.json'
+import inventory from '../../../data/prices.json'
 
 import Stripe from 'stripe'
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -50,4 +49,22 @@ export default async function handler(
     res.setHeader('Allow', 'POST')
     res.status(405).end('Method Not Allowed')
   }
+}
+
+const validateCartItems = (inventorySrc, cartDetails) => {
+  const validatedItems = []
+  for (const sku in cartDetails) {
+    const product = cartDetails[sku]
+    const inventoryItem = inventorySrc.find(
+      (currentProduct) => currentProduct.sku === sku
+    )
+    if (!inventoryItem) throw new Error(`Product ${sku} not found!`)
+    const item = {
+      price: inventoryItem.sku,
+      quantity: product.quantity
+    }
+    validatedItems.push(item)
+  }
+
+  return validatedItems
 }
