@@ -25,9 +25,10 @@ export default async function handler(
       // Validate the cart details that were sent from the client.
       const cartItems = req.body
       const line_items = validateCartItems(inventory, cartItems)
+      const subscriptionInCart = isSubscriptionInCart(cartItems);
       // Create Checkout Sessions from body params.
       const params: Stripe.Checkout.SessionCreateParams = {
-        mode: 'subscription',
+        mode: subscriptionInCart ? 'subscription' : 'payment',
         payment_method_types: ['card'],
         billing_address_collection: 'auto',
         shipping_address_collection: {
@@ -67,4 +68,14 @@ const validateCartItems = (inventorySrc, cartDetails) => {
   }
 
   return validatedItems
+}
+
+const isSubscriptionInCart = (cartDetails) => {
+  let subscriptionFound = false
+  for (const cartItem of Object.entries(cartDetails)) {
+    if (cartItem.recurring) {
+      subscriptionFound = true
+    }
+  }
+  return subscriptionFound
 }
