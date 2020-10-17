@@ -1,10 +1,22 @@
 [
   {
-    "price": "price_1HUJmC4YsAsT3IGzoP2yeIHW",
-    "quantity": 1
-  },  
+    "name": "Subscription",
+    "description": "Sign up for unlimited streaming access",
+    "sku": "price_1HUJoQ4YsAsT3IGzinBj8FRq",
+    "price": 1000,
+    "image": "https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=225&q=80",
+    "attribution": "Photo by Priscilla Du Preez on Unsplash",
+    "currency": "USD",
+    "recurring": true
+  },
   {
-    "price": "price_1HUJoQ4YsAsT3IGzinBj8FRq",
-    "quantity": 1
+    "name": "Pint",
+    "description": "The cause of, and solution to, all problems",
+    "sku": "price_1HUJoQ4YsAsT3IGzinBj8FRq",
+    "price": 700,
+    "image": "https://images.unsplash.com/photo-1586797252911-37b57308ebee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=225&q=80",
+    "attribution": "Photo by Priscilla Du Preez on Unsplash",
+    "currency": "USD",
+    "recurring": false
   }
 ]
