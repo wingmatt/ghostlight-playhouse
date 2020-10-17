@@ -17,7 +17,7 @@ export default async function fetchPriceFromStripe(priceId) {
   });
 }
 
-export default async function fetchStripePrices() {
+export async function fetchStripePrices() {
   const stripePrices =  await stripe.prices.list()
   .then((response) => {
     let priceObject = {
