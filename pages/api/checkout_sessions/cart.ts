@@ -73,7 +73,7 @@ const validateCartItems = (inventorySrc, cartDetails) => {
 const isSubscriptionInCart = (cartDetails) => {
   let subscriptionFound = false
   for (const cartItem of Object.entries(cartDetails)) {
-    if (cartItem.recurring) {
+    if (cartItem[1].recurring) {
       subscriptionFound = true
     }
   }
