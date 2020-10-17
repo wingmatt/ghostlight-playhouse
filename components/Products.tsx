@@ -8,7 +8,7 @@ const Products = () => {
 
   return (
     <section className="products">
-      {products.map((product) => (
+      {prices.map((product) => (
         <div key={product.sku} className="product">
           <img src={product.image} alt={product.name} />
           <h2>{product.name}</h2>
@@ -16,7 +16,7 @@ const Products = () => {
             {formatCurrencyString({
               value: product.price,
               currency: product.currency,
-            })}
+            })}{product.recurring? "/month" : ""}
           </p>
           <button
             className="cart-style-background"
