@@ -38,16 +38,3 @@ const Products = () => {
 
 export default Products
 
-export async function getStaticProps() {
-  let priceData = [];
-  prices.map((price) => {
-    priceData.push(fetchPriceFromStripe(price));
-  })
-
-  return {
-    props: {
-      priceData
-    },
-    revalidate: 10
-  }
-}
