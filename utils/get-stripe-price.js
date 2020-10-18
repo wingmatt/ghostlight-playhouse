@@ -4,7 +4,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 });
 
 const formatStripeProducts = function (stripeProducts) {
-  let formattedProducts = {}
+  let formattedProducts = {};
   stripeProducts.data.map((product) => {
     formattedProducts[product.id] = {
       name: product.name,
@@ -14,14 +14,14 @@ const formatStripeProducts = function (stripeProducts) {
   });
 
   return formattedProducts;
-}
+};
 
 export default async function formatStripeData() {
-  const stripePrices = await stripe.prices.list({ active: true })
-  const stripeProducts = await stripe.products.list()
+  const stripePrices = await stripe.prices.list({ active: true });
+  const stripeProducts = await stripe.products.list();
 
-  Promise.all([stripePrices,stripeProducts]).then(async (prices) => {
-    const formattedProducts = formatStripeProducts(stripeProducts)
+  Promise.all([stripePrices, stripeProducts]).then(async (prices) => {
+    const formattedProducts = formatStripeProducts(stripeProducts);
     let formattedStripeData = [];
 
     stripePrices.data.map((price) => {
@@ -47,5 +47,5 @@ export default async function formatStripeData() {
     });
 
     return formattedStripeData;
-  })
+  });
 }
