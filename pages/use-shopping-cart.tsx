@@ -1,11 +1,14 @@
-import { NextPage } from 'next'
+import { NextPage, GetStaticProps } from 'next'
 import Layout from '../components/Layout'
+
 
 import Cart from '../components/Cart'
 import CartSummary from '../components/CartSummary'
 import Products from '../components/Products'
+import formatStripeData from '../utils/get-stripe-price'
 
-const DonatePage: NextPage = () => {
+
+const DonatePage: NextPage = (props) => {
   return (
     <Layout title="Shopping Cart | Next.js + TypeScript Example">
       <div className="page-container">
@@ -17,7 +20,7 @@ const DonatePage: NextPage = () => {
         </p>
         <Cart>
           <CartSummary />
-          <Products />
+          <Products priceData={props.priceData}/>
         </Cart>
       </div>
     </Layout>
@@ -25,3 +28,13 @@ const DonatePage: NextPage = () => {
 }
 
 export default DonatePage
+
+export const getStaticProps = async () => {
+  const priceData = await formatStripeData()
+
+  return {
+    props: {
+      priceData
+    },
+  }
+}
