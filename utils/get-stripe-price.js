@@ -3,44 +3,29 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2020-03-02",
 });
 
-export async function getStripeProducts(stripePrices) {
-  let productsToGet = new Set();
-  stripePrices.data.map((price) => {
-    productsToGet.add(price.product);
+const formatStripeProducts = function (stripeProducts) {
+  let formattedProducts = {}
+  stripeProducts.data.map((product) => {
+    formattedProducts[product.id] = {
+      name: product.name,
+      description: product.description,
+      image: product.images[0],
+    };
   });
 
-  const stripeProducts = await stripe.products.list({
-    ids: [...productsToGet],
-  });
-
-  let formattedProducts = {};
-  Promise.resolve(stripeProducts).then(() => {
-    stripeProducts.data.map((product) => {
-      formattedProducts[product.id] = {
-        name: product.name,
-        description: product.description,
-        image: product.images[0],
-      };
-    });
-    return formattedProducts;
-  });
+  return formattedProducts;
 }
 
-/*
-@params :
-stripePrices: Raw price data from stripe prices list --active
-stripeProducts: result of getStripeProductData. Object where keys are the product ID.
-*/
 export default async function formatStripeData() {
   const stripePrices = await stripe.prices.list({ active: true })
-  Promise.resolve(stripePrices).then(async (prices) => {
-    // function returns an object, but stripeProducts remains undefined
-    return Promise.resolve(getStripeProducts(prices))
-  }).then((products) => {
+  const stripeProducts = await stripe.products.list()
+
+  Promise.all([stripePrices,stripeProducts]).then(async (prices) => {
+    const formattedProducts = formatStripeProducts(stripeProducts)
     let formattedStripeData = [];
 
     stripePrices.data.map((price) => {
-      let product = products[price.product];
+      let product = formattedProducts[price.product];
       let formattedPrice = {
         name: product.name,
         description: product.description,
@@ -51,7 +36,7 @@ export default async function formatStripeData() {
         type: price.type,
         recurring: null,
       };
-      if (product.type == "recurring") {
+      if (price.type == "recurring") {
         formattedPrice.recurring = {
           interval: price.recurring.interval,
           interval_count: price.recurring.interval_count,
@@ -62,5 +47,5 @@ export default async function formatStripeData() {
     });
 
     return formattedStripeData;
-  });
+  })
 }
