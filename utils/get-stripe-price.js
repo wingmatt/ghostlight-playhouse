@@ -20,7 +20,7 @@ export default async function formatStripeData() {
   const stripePrices = await stripe.prices.list({ active: true });
   const stripeProducts = await stripe.products.list();
 
-  Promise.all([stripePrices, stripeProducts]).then(async (prices) => {
+  return Promise.all([stripePrices, stripeProducts]).then(async (prices) => {
     const formattedProducts = formatStripeProducts(stripeProducts);
     let formattedStripeData = [];
 
@@ -46,6 +46,11 @@ export default async function formatStripeData() {
       formattedStripeData.push(formattedPrice);
     });
 
-    return formattedStripeData;
-  });
+    const formattedDataJson = JSON.stringify(
+      formattedStripeData,
+      function(k, v) { return v === undefined ? null : v; }
+    );
+    return formattedDataJson
+  })
+  .catch((error) => console.error(error))
 }
