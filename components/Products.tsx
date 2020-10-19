@@ -1,14 +1,11 @@
-import products from '../data/products.json'
-import prices from '../data/prices.json'
 import { useShoppingCart, formatCurrencyString } from 'use-shopping-cart'
-import fetchPriceFromStripe from '../utils/get-stripe-price'
 
-const Products = () => {
+const Products = (props) => {
   const { addItem, removeItem } = useShoppingCart()
 
   return (
     <section className="products">
-      {prices.map((product) => (
+      {props.priceData.map((product) => (
         <div key={product.sku} className="product">
           <img src={product.image} alt={product.name} />
           <h2>{product.name}</h2>
