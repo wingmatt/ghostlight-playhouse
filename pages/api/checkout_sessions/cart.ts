@@ -56,12 +56,8 @@ const validateCartItems = (inventorySrc, cartDetails) => {
   const validatedItems = []
   for (const sku in cartDetails) {
     const product = cartDetails[sku]
-    const inventoryItem = inventorySrc.find(
-      (currentProduct) => currentProduct.sku === sku
-    )
-    if (!inventoryItem) throw new Error(`Product ${sku} not found!`)
     const item = {
-      price: inventoryItem.sku,
+      price: product.sku,
       quantity: product.quantity
     }
     validatedItems.push(item)
