@@ -1,7 +1,6 @@
 import { NextPage, GetStaticProps } from 'next'
 import Layout from '../components/Layout'
 
-
 import Cart from '../components/Cart'
 import CartSummary from '../components/CartSummary'
 import Products from '../components/Products'
@@ -29,12 +28,13 @@ const DonatePage: NextPage = (props) => {
 
 export default DonatePage
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const priceData = await formatStripeData()
 
   return {
     props: {
       priceData
     },
+    revalidate: 10
   }
 }
