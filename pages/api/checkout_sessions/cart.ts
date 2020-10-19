@@ -8,7 +8,6 @@ import { NextApiRequest, NextApiResponse } from 'next'
  * The important thing is that the product info is loaded from somewhere trusted
  * so you know the pricing information is accurate.
  */
-import inventory from '../../../data/prices.json'
 
 import Stripe from 'stripe'
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -24,7 +23,7 @@ export default async function handler(
     try {
       // Validate the cart details that were sent from the client.
       const cartItems = req.body
-      const line_items = validateCartItems(inventory, cartItems)
+      const line_items = validateCartItems(cartItems)
       const subscriptionInCart = isSubscriptionInCart(cartItems);
       // Create Checkout Sessions from body params.
       const params: Stripe.Checkout.SessionCreateParams = {
@@ -52,7 +51,7 @@ export default async function handler(
   }
 }
 
-const validateCartItems = (inventorySrc, cartDetails) => {
+const validateCartItems = (cartDetails) => {
   const validatedItems = []
   for (const sku in cartDetails) {
     const product = cartDetails[sku]
