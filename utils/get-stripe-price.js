@@ -31,7 +31,7 @@ export default async function formatStripeData() {
         description: product.description,
         sku: price.id,
         price: price.unit_amount,
-        image: product.image,
+        image: product.image ? product.image : null,
         currency: price.currency,
         type: price.type,
         recurring: null,
@@ -46,11 +46,7 @@ export default async function formatStripeData() {
       formattedStripeData.push(formattedPrice);
     });
 
-    const formattedDataJson = JSON.stringify(
-      formattedStripeData,
-      function(k, v) { return v === undefined ? null : v; }
-    );
-    return formattedDataJson
+    return formattedStripeData
   })
   .catch((error) => console.error(error))
 }
