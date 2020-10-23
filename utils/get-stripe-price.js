@@ -45,7 +45,7 @@ export default async function formatStripeData() {
 
       formattedStripeData.push(formattedPrice);
     });
-    if (formatStripeData.length === 0) {
+    if (formattedStripeData.length === 0) {
       console.error("STRIPE DATA: No products or prices were found in your Stripe account.\n",
       "Learn how to build Products and Prices with the Stripe dashboard: https://support.stripe.com/questions/how-to-create-products-and-prices")
     }
