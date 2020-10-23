@@ -33,3 +33,4 @@ debug.log
 
 # vercel
 .vercel
+/data/
