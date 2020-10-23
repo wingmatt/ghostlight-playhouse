@@ -1,32 +1,52 @@
-import Stripe from 'stripe';
+import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2020-03-02',
+  apiVersion: "2020-03-02",
 });
 
-export default async function fetchPriceFromStripe(priceId) {
-  const stripePriceResponse =  await stripe.prices.retrieve(priceId)
-  .then((response) => {
-    let priceObject = {
-      sku: response.id,
-      name: response.name,
-      price: response.price,
-      currency: response.currency,
-      type: response.type
-    }
-    return stripePriceResponse;
+const formatStripeProducts = function (stripeProducts) {
+  let formattedProducts = {};
+  stripeProducts.data.map((product) => {
+    formattedProducts[product.id] = {
+      name: product.name,
+      description: product.description,
+      image: product.images[0],
+    };
   });
-}
 
-export async function fetchStripePrices() {
-  const stripePrices =  await stripe.prices.list()
-  .then((response) => {
-    let priceObject = {
-      sku: response.id,
-      name: response.name,
-      price: response.price,
-      currency: response.currency,
-      type: response.type
-    }
-    return stripePriceResponse;
-  });
+  return formattedProducts;
+};
+
+export default async function formatStripeData() {
+  const stripePrices = await stripe.prices.list({ active: true });
+  const stripeProducts = await stripe.products.list();
+
+  return Promise.all([stripePrices, stripeProducts]).then(async (prices) => {
+    const formattedProducts = formatStripeProducts(stripeProducts);
+    let formattedStripeData = [];
+
+    stripePrices.data.map((price) => {
+      let product = formattedProducts[price.product];
+      let formattedPrice = {
+        name: product.name,
+        description: product.description,
+        sku: price.id,
+        price: price.unit_amount,
+        image: product.image ? product.image : null,
+        currency: price.currency,
+        type: price.type,
+        recurring: null,
+      };
+      if (price.type == "recurring") {
+        formattedPrice.recurring = {
+          interval: price.recurring.interval,
+          interval_count: price.recurring.interval_count,
+        };
+      }
+
+      formattedStripeData.push(formattedPrice);
+    });
+
+    return formattedStripeData
+  })
+  .catch((error) => console.error(error))
 }
