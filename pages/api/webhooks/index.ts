@@ -42,8 +42,18 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // Cast event data to Stripe object.
     if (event.type === 'customer.subscription.updated') {
-      const subscriptionEvent = event.data.object as Stripe.PaymentIntent
-      console.log(`Subscription updated: ${subscriptionEvent.id}`)
+      /*
+      (Later) Elsewhere in the app, check the user's access expiration and change their role to "non-subscriber" if they are past their expiration period.
+      */
+      const subscription = event.data.object as Stripe.Subscription
+      const plan = subscription.items.data[0].plan
+      // Check a hardcoded list of Price ids that would grant access.
+      if (!subscription.current_period_end) {
+        // TODO: (Later) If the plan isn't active, then send an email to the user and update their account to be in the grace period, then exit. If it is active, proceed.
+      } else {
+        // Ensure the user is in the subscriber role. Set the user's access expiration date to that time + recur interval + 3 days.
+      }
+      console.log(`Subscription updated: ${subscription.id}`)
     } else if (event.type === 'payment_intent.succeeded') {
       const paymentIntent = event.data.object as Stripe.PaymentIntent
       console.log(`💰 PaymentIntent status: ${paymentIntent.status}`)
