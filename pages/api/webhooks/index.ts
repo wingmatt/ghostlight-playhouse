@@ -43,19 +43,8 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // Cast event data to Stripe object.
     if (event.type === 'customer.subscription.updated') {
-      /*
-      (Later) Elsewhere in the app, check the user's access expiration and change their role to "non-subscriber" if they are past their expiration period.
-      */
       const subscription = event.data.object as Stripe.Subscription
-      const plan = subscription.items.data[0].plan
-      // Check a hardcoded list of Price ids that would grant access.
-      if (subscription.status == "active") {
-                // Ensure the user is in the subscriber role. Set the user's access expiration date to that time + recur interval + 3 days.
-        await updateRole('ID???', 'subcriber')
-      } else if (subscription.status == "canceled") {
-                // TODO: (Later) If the plan isn't active, then send an email to the user and update their account to be in the grace period, then exit. If it is active, proceed.
-
-      }
+      updateSubscription(subscription)
       console.log(`Subscription updated: ${subscription.id}`)
     } else if (event.type === 'payment_intent.succeeded') {
       const paymentIntent = event.data.object as Stripe.PaymentIntent
@@ -90,7 +79,8 @@ const Auth0Token = async function Auth0Token() {
   return process.env.AUTH0_MGMT_API_TOKEN;
 }
 
-const Auth0UserFromEmail = async function Auth0UserFromEmail(email:string) {
+const Auth0UserFromEmail = async function Auth0UserFromEmail(email:string): Promise<string> {
+  let user = ''
   var options: AxiosRequestConfig = {
     method: 'GET',
     url: `${process.env.AUTH0_MGMT_API_URL}/users-by-email`,
@@ -98,36 +88,39 @@ const Auth0UserFromEmail = async function Auth0UserFromEmail(email:string) {
     headers: {authorization: 'Bearer '+ Auth0Token()}
   };
   axios.request(options).then(function (response) {
-    return response.data.user_id
+    user = response.data.user_id
   }).catch(function (error) {
     console.error(error);
   });
+  return user
 }
 
-const updateSubscription = async function updateSubscription(subscription: Stripe.Subscription, action: 'add' | 'remove') {
+const updateSubscription = async function updateSubscription(subscription: Stripe.Subscription) {
   // Get Auth0 ID that matches sub customer's email address
-  const stripeCustomer = await stripe.customers.retrieve(subscription.customer)
-  const Auth0User = Auth0UserFromEmail(stripeCustomer.email)
-
-  const options: AxiosRequestConfig ={
-    method: 'POST',
-    url: `${process.env.AUTH0_MGMT_API_URL}/users/${Auth0User}/roles`,
-    headers: {
-      'content-type': 'application/json',
-      authorization: 'Bearer ',
-      'cache-control': 'no-cache'
+  let Auth0User = ''
+  const stripeCustomer = await stripe.customers.retrieve(subscription.customer).then(async (customer)=> {
+    Auth0User = await Auth0UserFromEmail(stripeCustomer.email)
+  }).then(() => {
+    const options: AxiosRequestConfig ={
+      method: 'POST',
+      url: `${process.env.AUTH0_MGMT_API_URL}/users/${Auth0User}/roles`,
+      headers: {
+        'content-type': 'application/json',
+        authorization: 'Bearer ',
+        'cache-control': 'no-cache'
+      }
     }
-  }
-  if (action === 'add') {
-    options.data = {roles: ['rol_mVtxrBO97gmh9k2i']} // ID for "Subscriber" Role
-  } else if (action === 'remove') {
-    options.data = {roles: ['rol_MmUdJ02CjNL7lFOZ']} // ID for "Non-Subscriber" Role
-  }
-  axios.request(options).then(function (response) {
-    console.log(response.data);
-  }).catch(function (error) {
-    console.error(error);
-  });
+    if (subscription.status === 'active') {
+      options.data = {roles: ['rol_mVtxrBO97gmh9k2i']} // ID for "Subscriber" Auth0 Role
+    } else if (subscription.status === 'canceled') {
+      options.data = {roles: ['rol_MmUdJ02CjNL7lFOZ']} // ID for "Non-Subscriber" Auth0 Role
+    }
+    axios.request(options).then(function (response) {
+      console.log(response.data);
+    }).catch(function (error) {
+      console.error(error);
+    });
+  })
 }
 
 export default cors(webhookHandler as any)
