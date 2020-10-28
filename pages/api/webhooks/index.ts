@@ -1,3 +1,4 @@
+import axios, { AxiosRequestConfig } from 'axios'
 import { buffer } from 'micro'
 import Cors from 'micro-cors'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -48,10 +49,12 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       const subscription = event.data.object as Stripe.Subscription
       const plan = subscription.items.data[0].plan
       // Check a hardcoded list of Price ids that would grant access.
-      if (!subscription.current_period_end) {
-        // TODO: (Later) If the plan isn't active, then send an email to the user and update their account to be in the grace period, then exit. If it is active, proceed.
-      } else {
-        // Ensure the user is in the subscriber role. Set the user's access expiration date to that time + recur interval + 3 days.
+      if (subscription.status == "active") {
+                // Ensure the user is in the subscriber role. Set the user's access expiration date to that time + recur interval + 3 days.
+        await updateRole('ID???', 'subcriber')
+      } else if (subscription.status == "canceled") {
+                // TODO: (Later) If the plan isn't active, then send an email to the user and update their account to be in the grace period, then exit. If it is active, proceed.
+
       }
       console.log(`Subscription updated: ${subscription.id}`)
     } else if (event.type === 'payment_intent.succeeded') {
@@ -75,6 +78,56 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.setHeader('Allow', 'POST')
     res.status(405).end('Method Not Allowed')
   }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// TODO: Split this up into a separate file and only import the part that we need for the webhook
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+const Auth0Token = async function Auth0Token() {
+  // For testing, we return a pre-built token.
+  // TODO: Generate dynamic token request and return that instead.
+  return process.env.AUTH0_MGMT_API_TOKEN;
+}
+
+const Auth0UserFromEmail = async function Auth0UserFromEmail(email:string) {
+  var options: AxiosRequestConfig = {
+    method: 'GET',
+    url: `${process.env.AUTH0_MGMT_API_URL}/users-by-email`,
+    params: {email: email},
+    headers: {authorization: 'Bearer '+ Auth0Token()}
+  };
+  axios.request(options).then(function (response) {
+    return response.data.user_id
+  }).catch(function (error) {
+    console.error(error);
+  });
+}
+
+const updateSubscription = async function updateSubscription(subscription: Stripe.Subscription, action: 'add' | 'remove') {
+  // Get Auth0 ID that matches sub customer's email address
+  const stripeCustomer = await stripe.customers.retrieve(subscription.customer)
+  const Auth0User = Auth0UserFromEmail(stripeCustomer.email)
+
+  const options: AxiosRequestConfig ={
+    method: 'POST',
+    url: `${process.env.AUTH0_MGMT_API_URL}/users/${Auth0User}/roles`,
+    headers: {
+      'content-type': 'application/json',
+      authorization: 'Bearer ',
+      'cache-control': 'no-cache'
+    }
+  }
+  if (action === 'add') {
+    options.data = {roles: ['rol_mVtxrBO97gmh9k2i']} // ID for "Subscriber" Role
+  } else if (action === 'remove') {
+    options.data = {roles: ['rol_MmUdJ02CjNL7lFOZ']} // ID for "Non-Subscriber" Role
+  }
+  axios.request(options).then(function (response) {
+    console.log(response.data);
+  }).catch(function (error) {
+    console.error(error);
+  });
 }
 
 export default cors(webhookHandler as any)
