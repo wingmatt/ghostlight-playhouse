@@ -77,7 +77,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 // TODO: Split this up into a separate file and only import the part that we need for the webhook
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-const Auth0Token = async function Auth0Token() {
+const auth0Token = function auth0Token() {
   // For testing, we return a pre-built token.
   // TODO: Generate dynamic token request and return that instead.
   return process.env.AUTH0_MGMT_API_TOKEN;
@@ -91,17 +91,18 @@ const Auth0UserFromEmail = async function Auth0UserFromEmail(
     method: "GET",
     url: `${process.env.AUTH0_MGMT_API_URL}/users-by-email`,
     params: { email: email },
-    headers: { authorization: "Bearer " + Auth0Token() },
+    headers: { authorization: "Bearer " + auth0Token() },
   };
-  axios
+  return await axios
     .request(options)
     .then(function (response) {
       user = response.data.user_id;
+      return user;
     })
     .catch(function (error) {
       console.error(error);
+      return error;
     });
-  return user;
 };
 
 const updateSubscription = async function updateSubscription(
@@ -109,19 +110,18 @@ const updateSubscription = async function updateSubscription(
 ) {
   // Get Auth0 ID that matches sub customer's email address
   let Auth0User = "";
-  // Error around HERE VV
-  const stripeCustomer = await stripe.customers
+  return await stripe.customers
     .retrieve(subscription.customer)
-    return Promise.resolve(stripeCustomer).then(async (customer) => {
-      Auth0User = await Auth0UserFromEmail(stripeCustomer.email);
+    .then(async (customer) => {
+      return await Auth0UserFromEmail(customer.email);
     })
-    .then(() => {
+    .then((auth0User) => {
       const options: AxiosRequestConfig = {
         method: "POST",
-        url: `${process.env.AUTH0_MGMT_API_URL}/users/${Auth0User}/roles`,
+        url: `${process.env.AUTH0_MGMT_API_URL}/users/${auth0User}/roles`,
         headers: {
           "content-type": "application/json",
-          authorization: "Bearer ",
+          authorization: "Bearer " + auth0Token() ,
           "cache-control": "no-cache",
         },
       };
