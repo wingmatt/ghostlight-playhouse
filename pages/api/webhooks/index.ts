@@ -96,7 +96,7 @@ const Auth0UserFromEmail = async function Auth0UserFromEmail(
   return await axios
     .request(options)
     .then(function (response) {
-      user = response.data.user_id;
+      user = response.data[0].user_id;
       return user;
     })
     .catch(function (error) {
