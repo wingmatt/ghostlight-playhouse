@@ -109,9 +109,10 @@ const updateSubscription = async function updateSubscription(
 ) {
   // Get Auth0 ID that matches sub customer's email address
   let Auth0User = "";
+  // Error around HERE VV
   const stripeCustomer = await stripe.customers
     .retrieve(subscription.customer)
-    .then(async (customer) => {
+    return Promise.resolve(stripeCustomer).then(async (customer) => {
       Auth0User = await Auth0UserFromEmail(stripeCustomer.email);
     })
     .then(() => {
@@ -133,6 +134,7 @@ const updateSubscription = async function updateSubscription(
         .request(options)
         .then(function (response) {
           console.log(response.data);
+          return response.data;
         })
         .catch(function (error) {
           console.error(error);
