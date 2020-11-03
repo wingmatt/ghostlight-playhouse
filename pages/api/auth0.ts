@@ -23,39 +23,42 @@ const getAuth0Token = async function getAuth0Token() {
    })
 };
 
-const auth0Token = Promise.resolve(getAuth0Token());
+const auth0Token = getAuth0Token();
 
 const Auth0UserFromEmail = async function Auth0UserFromEmail(
   customer: Stripe.Customer
 ): Promise<string> {
-  const options: AxiosRequestConfig = {
-    method: "GET",
-    url: `${process.env.AUTH0_MGMT_API_URL}/users-by-email`,
-    params: { email: customer.email },
-    headers: { authorization: "Bearer " + auth0Token},
-  };
-  return await axios
-    .request(options)
-    .then(async function (response) {
-      let user = "";
-      if (response.data[0].user_id) {
-        user = response.data[0].user_id;
-      } else {
-        user = await createAuth0User(customer);
-      }
-      
-      return await user;
-    })
-    .catch(async function (error) {
-      console.error(error);
-      return error;
-    });
+  return await auth0Token.then(async (auth0Token) => {
+    var options: AxiosRequestConfig = {
+      method: "GET",
+      url: `${process.env.AUTH0_MGMT_API_URL}/users-by-email`,
+      params: { email: customer.email },
+      headers: { authorization: "Bearer " + auth0Token},
+    };
+    return await axios
+      .request(options)
+      .then(async function (response) {
+        let user = "";
+        if (response.data[0].user_id) {
+          user = response.data[0].user_id;
+        } else {
+          user = await createAuth0User(customer);
+        }
+        
+        return await user;
+      })
+      .catch(async function (error) {
+        console.error(error);
+        return error;
+      });
+  })
 };
 
 const updateSubscription = async function updateSubscription(
   subscription: Stripe.Subscription
 ) {
-  return await stripe.customers
+  return await auth0Token.then(async (auth0Token) => {
+    return await stripe.customers
     .retrieve(subscription.customer)
     .then(async (customer) => {
       return await Auth0UserFromEmail(customer);
@@ -85,37 +88,41 @@ const updateSubscription = async function updateSubscription(
           console.error(error);
         });
     });
+  })
 };
 
 const createAuth0User = async function createAuth0User(customer: Stripe.Customer): Promise<string> {
-  const options: AxiosRequestConfig = {
-    method: "POST",
-    url: `${process.env.AUTH0_MGMT_API_URL}/users`,
-    headers: {
-      "content-type": "application/json",
-      authorization: "Bearer " + auth0Token ,
-      "cache-control": "no-cache",
-    },
-    data: {
-      "email": customer.email,
-      "blocked": false,
-      "email_verified": false,
-      "user_id": customer.id,
-      "connection": "Username-Password-Authentication",
-      "password": "ghostlight22!",
-      "verify_email": true,
-    }
-  };
-  return await axios
-    .request(options)
-    .then(function (response) {
-      const user = response.data[0].user_id;
-      return user;
-    })
-    .catch(async function (error) {
-      console.error(error);
-      return "";
-    });
+  return await auth0Token.then(async (auth0Token) => {
+    const options: AxiosRequestConfig = {
+      method: "POST",
+      url: `${process.env.AUTH0_MGMT_API_URL}/users`,
+      headers: {
+        "content-type": "application/json",
+        authorization: "Bearer " + auth0Token ,
+        "cache-control": "no-cache",
+      },
+      data: {
+        "email": customer.email,
+        "blocked": false,
+        "email_verified": false,
+        "user_id": customer.id,
+        "connection": "Username-Password-Authentication",
+        "password": "ghostlight22!",
+        "verify_email": true,
+      }
+    };
+    return await axios
+      .request(options)
+      .then(function (response) {
+        const user = response.data[0].user_id;
+        return user;
+      })
+      .catch(async function (error) {
+        console.error(error);
+        return "";
+      });
+  })
+  
 
 }
 
