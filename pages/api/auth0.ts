@@ -24,14 +24,18 @@ const Auth0UserFromEmail = async function Auth0UserFromEmail(
   };
   return await axios
     .request(options)
-    .then(function (response) {
-      user = response.data[0].user_id;
-      return user;
+    .then(async function (response) {
+      if (response.data[0].user_id) {
+        user = response.data[0].user_id;
+      } else {
+        user = await createAuth0User(customer);
+      }
+      
+      return await user;
     })
     .catch(async function (error) {
       console.error(error);
-      const newUserId = await createAuth0User(customer)
-      return Promise.resolve(newUserId);
+      return error;
     });
 };
 
