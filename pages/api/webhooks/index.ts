@@ -3,6 +3,8 @@ import { buffer } from "micro";
 import Cors from "micro-cors";
 import { NextApiRequest, NextApiResponse } from "next";
 
+import updateSubscription from "../auth0"
+
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   // https://github.com/stripe/stripe-node#configuration
@@ -76,7 +78,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // TODO: Split this up into a separate file and only import the part that we need for the webhook
 /////////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 const auth0Token = function auth0Token() {
   // For testing, we return a pre-built token.
   // TODO: Generate dynamic token request and return that instead.
@@ -141,5 +143,21 @@ const updateSubscription = async function updateSubscription(
         });
     });
 };
+
+const createAuth0User = async function createAuth0User(customer: Stripe.Customer) {
+  const newUserDetails = {
+    "email": customer.email,
+    "phone_number": customer.phone,
+    "blocked": false,
+    "email_verified": false,
+    "phone_verified": false,
+    "name": customer.name,
+    "user_id": customer.id,
+    "connection": "Username-Password-Authentication",
+    "password": "ghostlight",
+    "verify_email": true,
+    "username": customer.email
+  }
+}*/
 
 export default cors(webhookHandler as any);
