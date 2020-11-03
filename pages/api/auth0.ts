@@ -8,7 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 const getAuth0Token = async function getAuth0Token() {
   const options: AxiosRequestConfig = { method: 'POST',
-  url: `https://wingmatt.us.auth0.com/oauth/token`,
+  url: `${process.env.AUTH0_OAUTH_DOMAIN}/oauth/token`,
   headers: { 'content-type': 'application/json' },
   data:
    { audience: `${process.env.AUTH0_MGMT_API_URL}/`,
