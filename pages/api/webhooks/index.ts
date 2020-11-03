@@ -1,4 +1,3 @@
-import axios, { AxiosRequestConfig } from "axios";
 import { buffer } from "micro";
 import Cors from "micro-cors";
 import { NextApiRequest, NextApiResponse } from "next";
