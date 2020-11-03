@@ -4,13 +4,26 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   // https://github.com/stripe/stripe-node#configuration
   apiVersion: "2020-03-02",
-});
+}); 
 
-const auth0Token = function auth0Token() {
-  // For testing, we return a pre-built token.
-  // TODO: Generate dynamic token request and return that instead.
-  return process.env.AUTH0_MGMT_API_TOKEN;
+const getAuth0Token = async function getAuth0Token() {
+  const options: AxiosRequestConfig = { method: 'POST',
+  url: `https://wingmatt.us.auth0.com/oauth/token`,
+  headers: { 'content-type': 'application/json' },
+  data:
+   { audience: `${process.env.AUTH0_MGMT_API_URL}/`,
+     client_id: process.env.AUTH0_CLIENT_ID,
+     client_secret: process.env.AUTH0_CLIENT_SECRET,
+     grant_type: 'client_credentials' }
+   };
+   return await axios(options).then ((response) => {
+    return response.data.access_token;
+   }).catch((error) => {
+    console.log(error);
+   })
 };
+
+const auth0Token = Promise.resolve(getAuth0Token());
 
 const Auth0UserFromEmail = async function Auth0UserFromEmail(
   customer: Stripe.Customer
@@ -20,7 +33,7 @@ const Auth0UserFromEmail = async function Auth0UserFromEmail(
     method: "GET",
     url: `${process.env.AUTH0_MGMT_API_URL}/users-by-email`,
     params: { email: customer.email },
-    headers: { authorization: "Bearer " + auth0Token() },
+    headers: { authorization: "Bearer " + auth0Token},
   };
   return await axios
     .request(options)
@@ -42,8 +55,6 @@ const Auth0UserFromEmail = async function Auth0UserFromEmail(
 const updateSubscription = async function updateSubscription(
   subscription: Stripe.Subscription
 ) {
-  // Get Auth0 ID that matches sub customer's email address
-  let Auth0User = "";
   return await stripe.customers
     .retrieve(subscription.customer)
     .then(async (customer) => {
@@ -55,7 +66,7 @@ const updateSubscription = async function updateSubscription(
         url: `${process.env.AUTH0_MGMT_API_URL}/users/${auth0User}/roles`,
         headers: {
           "content-type": "application/json",
-          authorization: "Bearer " + auth0Token() ,
+          authorization: "Bearer " + auth0Token ,
           "cache-control": "no-cache",
         },
       };
@@ -82,7 +93,7 @@ const createAuth0User = async function createAuth0User(customer: Stripe.Customer
     url: `${process.env.AUTH0_MGMT_API_URL}/users`,
     headers: {
       "content-type": "application/json",
-      authorization: "Bearer " + auth0Token() ,
+      authorization: "Bearer " + auth0Token ,
       "cache-control": "no-cache",
     },
     data: {
