@@ -28,8 +28,7 @@ const auth0Token = Promise.resolve(getAuth0Token());
 const Auth0UserFromEmail = async function Auth0UserFromEmail(
   customer: Stripe.Customer
 ): Promise<string> {
-  let user = "";
-  var options: AxiosRequestConfig = {
+  const options: AxiosRequestConfig = {
     method: "GET",
     url: `${process.env.AUTH0_MGMT_API_URL}/users-by-email`,
     params: { email: customer.email },
@@ -38,6 +37,7 @@ const Auth0UserFromEmail = async function Auth0UserFromEmail(
   return await axios
     .request(options)
     .then(async function (response) {
+      let user = "";
       if (response.data[0].user_id) {
         user = response.data[0].user_id;
       } else {
