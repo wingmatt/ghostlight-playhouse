@@ -83,16 +83,12 @@ const createAuth0User = async function createAuth0User(customer: Stripe.Customer
     },
     data: {
       "email": customer.email,
-      "phone_number": customer.phone,
       "blocked": false,
       "email_verified": false,
-      "phone_verified": false,
-      "name": customer.name,
       "user_id": customer.id,
       "connection": "Username-Password-Authentication",
-      "password": "ghostlight",
+      "password": "ghostlight22!",
       "verify_email": true,
-      "username": customer.email
     }
   };
   return await axios
