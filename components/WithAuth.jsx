@@ -5,6 +5,8 @@ import { fetchUser } from '../lib/user';
 import createLoginUrl from '../lib/url-helper';
 import RedirectToLogin from '../components/LoginRedirect';
 
+import jwt from 'jsonwebtoken'
+
 export default function withAuth(InnerComponent) {
   return class Authenticated extends Component {
     static async getInitialProps(ctx) {
@@ -23,7 +25,15 @@ export default function withAuth(InnerComponent) {
         ctx.res.end();
         return;
       }
+      const jwtOptions = {
+        algorithms: ["RS256"],
 
+      }
+      const signingCert = process.env.AUTH0_SIGNING_CERT_B64
+      const processedCert = Buffer.from(signingCert, 'base64').toString();
+      const decodedToken = jwt.verify(session.accessToken, processedCert, jwtOptions)
+      const permissions = decodedToken.permissions
+      const isSubscriber = permissions.includes('access:stream')
       return { user: session.user };
     }
 
