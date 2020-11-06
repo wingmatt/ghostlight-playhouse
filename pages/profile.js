@@ -1,8 +1,6 @@
 import React from 'react';
 
-import auth0 from '../utils/auth0';
-import { fetchUser } from '../lib/user';
-import Layout from '../components/layout';
+import Layout from '../components/Layout';
 import withAuth from '../components/WithAuth';
 
 const Profile = ({ user }) => (
