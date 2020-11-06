@@ -7,12 +7,12 @@ const WatchPage: NextPage = (props) => {
 
   return (
     <Layout user={props.user}>
-      <h1>Protected Page</h1>
+      <h1>Livestream</h1>
 
 
         <>
-          <p>Profile:</p>
-          <pre>{JSON.stringify(props.user, null, 2)}</pre>
+          <div id='wowza_player'></div>
+          <script id='player_embed' src='https//player.cloud.wowza.com/hosted/rjrbb1t0/wowza.js' type='text/javascript'></script>
         </>
     </Layout>
   )
