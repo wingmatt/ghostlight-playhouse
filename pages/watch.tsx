@@ -12,7 +12,7 @@ const WatchPage: NextPage = (props) => {
 
         <>
           <div id='wowza_player'></div>
-          <script id='player_embed' src='https//player.cloud.wowza.com/hosted/rjrbb1t0/wowza.js' type='text/javascript'></script>
+          <script id='player_embed' src='https://player.cloud.wowza.com/hosted/rjrbb1t0/wowza.js' type='text/javascript'></script>
         </>
     </Layout>
   )
