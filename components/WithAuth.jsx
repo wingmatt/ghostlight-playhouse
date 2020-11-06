@@ -25,16 +25,15 @@ export default function withAuth(InnerComponent) {
         ctx.res.end();
         return;
       }
-      const jwtOptions = {
-        algorithms: ["RS256"],
-
+      const certBase64 = process.env.AUTH0_SIGNING_CERT_B64
+      const certDecoded = Buffer.from(certBase64, 'base64').toString();
+      const token = jwt.verify(session.accessToken, certDecoded, { algorithms: ["RS256"] })
+      const userData = {
+        id: session.user.sub,
+        email: session.user.name,
+        permissions: token.permissions
       }
-      const signingCert = process.env.AUTH0_SIGNING_CERT_B64
-      const processedCert = Buffer.from(signingCert, 'base64').toString();
-      const decodedToken = jwt.verify(session.accessToken, processedCert, jwtOptions)
-      const permissions = decodedToken.permissions
-      const isSubscriber = permissions.includes('access:stream')
-      return { user: session.user };
+      return { user: userData };
     }
 
     constructor(props) {
