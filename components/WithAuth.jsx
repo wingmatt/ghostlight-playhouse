@@ -7,7 +7,7 @@ import RedirectToLogin from '../components/LoginRedirect';
 
 import jwt from 'jsonwebtoken'
 
-export default function withAuth(InnerComponent) {
+export default function WithAuth(InnerComponent) {
   return class Authenticated extends Component {
     static async getInitialProps(ctx) {
       if (!ctx.req) {
