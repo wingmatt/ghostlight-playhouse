@@ -5,8 +5,10 @@ import Layout from '../components/Layout'
 const IndexPage: NextPage = () => {
   return (
     <Layout title="Home | Next.js + TypeScript Example">
-      <a href="/api/login">Login</a>
-      <a href="/api/logout">Logout</a>
+      <Link href="/api/login"><a>Login</a></Link> | 
+      <Link href="/api/logout"><a>Logout</a></Link> | 
+      <Link href="/watch"><a>Watch</a></Link>
+
       <ul className="card-list">
         <li>
           <Link href="/donate-with-checkout">
