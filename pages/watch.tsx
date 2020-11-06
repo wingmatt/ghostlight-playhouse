@@ -1,7 +1,7 @@
 import { NextPage, GetServerSideProps } from 'next'
 import Layout from '../components/Layout'
 import { useFetchUser } from '../lib/user';
-import withAuth from '../components/withAuth';
+import WithAuth from '../components/WithAuth';
 
 const WatchPage: NextPage = (props) => {
 
@@ -18,4 +18,4 @@ const WatchPage: NextPage = (props) => {
   )
 }
 
-export default withAuth(WatchPage)
+export default WithAuth(WatchPage)
