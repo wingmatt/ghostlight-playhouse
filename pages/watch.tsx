@@ -1,23 +1,19 @@
-import { NextPage } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import Layout from '../components/Layout'
 import { useFetchUser } from '../lib/user';
 import withAuth from '../components/withAuth';
 
-const WatchPage: NextPage = () => {
-  const { user, loading } = useFetchUser();
+const WatchPage: NextPage = (props) => {
 
   return (
-    <Layout user={user} loading={loading}>
+    <Layout user={props.user}>
       <h1>Protected Page</h1>
 
-      {loading && <p>Loading profile...</p>}
 
-      {!loading && user && (
         <>
           <p>Profile:</p>
-          <pre>{JSON.stringify(user, null, 2)}</pre>
+          <pre>{JSON.stringify(props.user, null, 2)}</pre>
         </>
-      )}
     </Layout>
   )
 }
