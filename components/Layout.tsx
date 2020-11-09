@@ -42,11 +42,14 @@ const Layout = ({
             </a>
           </Link>
           <h1>
-            <span className="light">Stripe Sample</span>
-            <br />
-            Next.js, TypeScript, and Stripe 🔒💸
+            Ghostlight Playhouse
           </h1>
         </div>
+        <nav>
+        <Link href="/api/login"><a>Login</a></Link> | 
+        <Link href="/api/logout"><a>Logout</a></Link> | 
+        <Link href="/watch"><a>Watch</a></Link>
+        </nav>
       </header>
       {children}
     </div>
