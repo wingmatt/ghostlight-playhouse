@@ -4,10 +4,10 @@ export default initAuth0({
   domain: process.env.AUTH0_DOMAIN,
   clientId: process.env.AUTH0_CLIENT_ID,
   clientSecret: process.env.AUTH0_CLIENT_SECRET,
-  audience: 'https://watch.ghostlightplayhouse.com/api/',
+  audience: `${process.env.URL_ROOT}/api/`,
   scope: 'openid profile access:stream',
-  redirectUri: 'https://ghostlight.netlify.app/api/callback',
-  postLogoutRedirectUri: 'https://ghostlight.netlify.app/',
+  redirectUri: `${process.env.URL_ROOT}/api/callback`,
+  postLogoutRedirectUri: `${process.env.URL_ROOT}/`,
   session: {
     // The secret used to encrypt the cookie.
     cookieSecret: process.env.AUTH0_COOKIE_SECRET,
