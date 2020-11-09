@@ -1,9 +1,7 @@
 import React from 'react';
 
-import auth0 from '../utils/auth0';
-import { fetchUser } from '../lib/user';
-import Layout from '../components/layout';
-import withAuth from '../components/WithAuth';
+import Layout from '../components/Layout';
+import WithAuth from '../components/WithAuth';
 
 const Profile = ({ user }) => (
   <Layout user={user}>
@@ -16,4 +14,4 @@ const Profile = ({ user }) => (
   </Layout>
 );
 
-export default withAuth(Profile);
+export default WithAuth(Profile);
