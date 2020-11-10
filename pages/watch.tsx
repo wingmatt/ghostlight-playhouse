@@ -1,6 +1,5 @@
 import { NextPage, GetServerSideProps } from 'next'
 import Layout from '../components/Layout'
-import { useFetchUser } from '../lib/user';
 import WithAuth from '../components/WithAuth';
 
 const WatchPage: NextPage = (props) => {
