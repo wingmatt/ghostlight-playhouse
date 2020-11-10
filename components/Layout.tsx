@@ -32,7 +32,7 @@ const Layout = ({
         ? <Link href="/api/logout"><a>Logout</a></Link>
         : <Link href="/api/login"><a>Login</a></Link>
         }
-        <a href="/watch">Watch</a>
+        &nbsp;|&nbsp;<a href="/watch">Watch</a>
         </nav>
       </header>
       {children}
