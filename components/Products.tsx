@@ -25,7 +25,7 @@ const Products = (props) => {
             className="cart-style-background"
             onClick={() => removeItem(product.sku)}
           >
-            Remove
+            Remove all
           </button>
         </div>
       ))}
