@@ -1,7 +1,7 @@
 /* Variables */
 :root {
+  --color-primary: #0F61A5;
   --body-color: #fcfdfe;
-  --checkout-color: #8f6ed5;
   --elements-color: #6772e5;
   --body-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     sans-serif;
@@ -71,7 +71,7 @@ h3 {
 }
 
 a {
-  color: var(--checkout-color);
+  color: var(--color-primary);
   text-decoration: none;
 }
 
@@ -180,22 +180,22 @@ button:disabled {
   box-shadow: 20px 20px 60px #464e9c, -20px -20px 60px #8896ff;
 }
 .checkout-style {
-  color: var(--checkout-color);
-  border: 1px solid var(--checkout-color);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
 }
 .checkout-style-background {
-  background: var(--checkout-color);
+  background: var(--color-primary);
   transition: box-shadow var(--transition-duration);
 }
 .card.checkout-style-background:hover {
   box-shadow: 20px 20px 60px #614b91, -20px -20px 60px #bd91ff;
 }
 .cart-style-background {
-  background: teal;
+  background: var(--color-primary);
   transition: box-shadow var(--transition-duration);
 }
 .card.cart-style-background:hover {
-  box-shadow: 20px 20px 60px teal, -20px -20px 60px teal;
+  box-shadow: 20px 20px 60px var(--color-primary), -20px -20px 60px var(--color-primary);
 }
 
 /* Products */
