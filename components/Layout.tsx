@@ -14,7 +14,7 @@ const Layout = ({
   user, 
   loading=false,
   children,
-  title = 'TypeScript Next.js Stripe Example',
+  title = 'Ghostlight Playhouse',
 }: Props) => (
   <UserProvider value={{ user, loading }}>
     <Head>
@@ -36,19 +36,19 @@ const Layout = ({
     <div className="container">
       <header>
         <div className="header-content">
-          <Link href="/">
-            <a className="logo">
-              <img src="/logo.png" />
-            </a>
-          </Link>
+          <a href="/" className="logo">
+            <img src="/logo.png" />
+          </a>
           <h1>
             Ghostlight Playhouse
           </h1>
         </div>
         <nav>
-        <Link href="/api/login"><a>Login</a></Link> | 
-        <Link href="/api/logout"><a>Logout</a></Link> | 
-        <Link href="/watch"><a>Watch</a></Link>
+        {user
+        ? <Link href="/api/logout"><a>Logout</a></Link>
+        : <Link href="/api/login"><a>Login</a></Link>
+        }
+        <a href="/watch">Watch</a>
         </nav>
       </header>
       {children}
