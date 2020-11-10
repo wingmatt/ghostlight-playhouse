@@ -24,14 +24,9 @@ const Layout = ({
     </Head>
     <div className="container">
       <header>
-        <div className="header-content">
-          <a href="/" className="logo">
-            <img src="/logo.png" />
-          </a>
-          <h1>
-            Ghostlight Playhouse
-          </h1>
-        </div>
+        <a href="/" className="logo">
+          <img src="/logo.png" />
+        </a>
         <nav>
         {user
         ? <Link href="/api/logout"><a>Logout</a></Link>

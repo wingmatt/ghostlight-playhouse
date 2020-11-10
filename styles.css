@@ -35,13 +35,16 @@ body {
 .container {
   max-width: var(--container-width-max);
   padding: 45px 25px;
-  display: flex;
-  flex-direction: row;
 }
 
 .page-container {
   padding-bottom: 60px;
   max-width: var(--page-width-max);
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 h1 {
@@ -78,14 +81,8 @@ header {
   padding-right: 48px;
 }
 
-.header-content {
-  position: sticky;
-  top: 45px;
-}
-
 .logo img {
-  height: 20px;
-  margin-bottom: 52px;
+  max-height: 100px;
 }
 
 ul,
