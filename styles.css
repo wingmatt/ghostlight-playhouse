@@ -33,6 +33,7 @@ body {
 }
 
 .container {
+  min-width: 50vw;
   max-width: var(--container-width-max);
   padding: 45px 25px;
 }
