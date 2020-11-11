@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { UserProvider } from '../lib/user';
+import NavAccount from './NavAccount';
 
 type Props = {
   user: string
@@ -11,6 +12,7 @@ type Props = {
 }
 
 const Layout = ({
+  loggedIn,
   user, 
   loading=false,
   children,
@@ -28,10 +30,7 @@ const Layout = ({
           <img src="/logo.png" />
         </a>
         <nav>
-        {user
-        ? <Link href="/api/logout"><a>Logout</a></Link>
-        : <Link href="/api/login"><a>Login</a></Link>
-        }
+          <NavAccount user={loggedIn}/>
         &nbsp;|&nbsp;<a href="/watch">Watch</a>
         </nav>
       </header>

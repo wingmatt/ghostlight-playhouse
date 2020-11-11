@@ -1,10 +1,12 @@
-import { NextPage } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import Link from 'next/link'
 import Layout from '../components/Layout'
+import CheckAuth from '../components/CheckAuth'
 
-const IndexPage: NextPage = () => {
+const IndexPage: NextPage = (props) => {
+  const loggedIn = (props.user)
   return (
-    <Layout title="Home | Next.js + TypeScript Example">
+    <Layout title="Home | Next.js + TypeScript Example" loggedIn={loggedIn}>
 
       <ul className="card-list">
         <li>
@@ -24,4 +26,4 @@ const IndexPage: NextPage = () => {
   )
 }
 
-export default IndexPage
+export default CheckAuth(IndexPage)
