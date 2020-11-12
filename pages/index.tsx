@@ -15,7 +15,7 @@ const IndexPage: NextPage = (props) => {
             </a>
         </li>
         <li>
-          <Link href="/use-shopping-cart">
+          <Link href="/full-menu">
             <a className="card cart-style-background">
               <h2 className="bottom">Point of Sale</h2>
             </a>
