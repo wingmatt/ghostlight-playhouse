@@ -1,4 +1,4 @@
-import { userInfo } from "os";
+import Head from 'next/head'
 
 const SubscribeCTA = (props) => {
 
@@ -15,13 +15,16 @@ const SubscribeCTA = (props) => {
       ],
       mode: 'subscription',
       successUrl: `${urlRoot}/watch`,
-      cancelUrl: `${urlRoot}/`,
+      cancelUrl: `${urlRoot}/watch`,
       customerEmail: props.user.email
     });
   };
 
   return (
     <form onSubmit={handleCheckout}>
+      <Head>
+        <script src="https://js.stripe.com/v3/" key="stripe"></script>
+      </Head>
       <button type="submit">
         Sign Up and Start Watching
       </button>
