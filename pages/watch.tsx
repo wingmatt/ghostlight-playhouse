@@ -11,14 +11,14 @@ const WatchPage: NextPage = (props) => {
 
     if (isSubscribed) {
       return(
-        <Layout user={props.user} loggedIn={loggedIn}>
+        <Layout title="Watch Live Local Talent | Ghostlight Playhouse" user={props.user} loggedIn={loggedIn}>
           <h1>Watch Live Local Talent</h1>
           <Stream/>
         </Layout>
       )
     } else {
       return(
-        <Layout user={props.user} loggedIn={loggedIn}>
+        <Layout title="Start Watching Live Local Talent | Ghostlight Playhouse" user={props.user} loggedIn={loggedIn}>
           <h1>Start Watching Live Local Talent</h1>
           <SubscribeCTA user={props.user}/>
         </Layout>

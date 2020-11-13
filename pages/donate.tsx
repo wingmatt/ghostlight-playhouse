@@ -8,7 +8,7 @@ import ElementsForm from '../components/ElementsForm'
 
 const DonatePage: NextPage = () => {
   return (
-    <Layout title="Donate with Elements | Next.js + TypeScript Example">
+    <Layout title="Donate Today | Ghostlight Playhouse">
       <div className="page-container">
         <h1>Donate to the Ghostlight Playhouse</h1>
         <p>The Ghostlight Playhouse is an entertainment hub. </p>
