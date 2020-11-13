@@ -1,13 +1,15 @@
 import { NextPage, GetServerSideProps } from 'next'
 import Layout from '../components/Layout'
+import SubscribeCTA from '../components/SubscribeCTA';
 import WithAuth from '../components/WithAuth';
 
 const WatchPage: NextPage = (props) => {
+  const loggedIn = (props.user)
   const isSubscribed = props.user.permissions.includes('access:stream')
 
     if (isSubscribed) {
       return(
-        <Layout user={props.user}>
+        <Layout user={props.user} loggedIn={loggedIn}>
           <h1>Livestream</h1>
           <>
             <div id='wowza_player'></div>
@@ -17,9 +19,9 @@ const WatchPage: NextPage = (props) => {
       )
     } else {
       return(
-        <Layout user={props.user}>
+        <Layout user={props.user} loggedIn={loggedIn}>
           <h1>Start Watching Live Local Talent</h1>
-          <button>Sign Up and Start Watching</button>
+          <SubscribeCTA/>
         </Layout>
       )
     }
