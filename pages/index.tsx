@@ -7,7 +7,7 @@ const IndexPage: NextPage = (props) => {
   const loggedIn = (props.user)
   return (
     <Layout title="Home | Next.js + TypeScript Example" loggedIn={loggedIn}>
-
+      <h1>Ghostlight Playhouse Stream</h1>
       <ul className="card-list">
         <li>
             <a className="card elements-style-background" href="/watch">
