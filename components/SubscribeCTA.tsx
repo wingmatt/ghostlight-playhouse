@@ -11,7 +11,7 @@ const SubscribeCTA = (props) => {
     const urlRoot = document.location.origin;
     const {error} = await stripe.redirectToCheckout({
       lineItems: [
-        {price: 'price_1HUJmC4YsAsT3IGzoP2yeIHW', quantity: 1},
+        {price: 'price_1HnBPzAlSgPwIalWb8KjnY5c', quantity: 1},
       ],
       mode: 'subscription',
       successUrl: `${urlRoot}/watch`,
