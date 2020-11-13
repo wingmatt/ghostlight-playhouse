@@ -1,36 +1,23 @@
-import { NextPage } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import Link from 'next/link'
 import Layout from '../components/Layout'
+import CheckAuth from '../components/CheckAuth'
 
-const IndexPage: NextPage = () => {
+const IndexPage: NextPage = (props) => {
+  const loggedIn = (props.user)
   return (
-    <Layout title="Home | Next.js + TypeScript Example">
-      <Link href="/api/login"><a>Login</a></Link> | 
-      <Link href="/api/logout"><a>Logout</a></Link> | 
-      <Link href="/watch"><a>Watch</a></Link>
+    <Layout title="Home | Next.js + TypeScript Example" loggedIn={loggedIn}>
 
       <ul className="card-list">
         <li>
-          <Link href="/donate-with-checkout">
-            <a className="card checkout-style-background">
-              <h2 className="bottom">Donate with Checkout</h2>
-              <img src="/checkout-one-time-payments.svg" alt="Donate with Checkout" />
+            <a className="card elements-style-background" href="/watch">
+              <h2 className="bottom">Watch Stream</h2>
             </a>
-          </Link>
         </li>
         <li>
           <Link href="/donate-with-elements">
-            <a className="card elements-style-background">
-              <h2 className="bottom">Donate with Elements</h2>
-              <img src="/elements-card-payment.svg" alt="Donate with Elements"/>
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/use-shopping-cart">
             <a className="card cart-style-background">
-              <h2 className="bottom">Use Shopping Cart</h2>
-              <img src="/use-shopping-cart.png" alt="Use Shopping Cart"/>
+              <h2 className="bottom">Donate to Ghostlight Playhouse</h2>
             </a>
           </Link>
         </li>
@@ -39,4 +26,4 @@ const IndexPage: NextPage = () => {
   )
 }
 
-export default IndexPage
+export default CheckAuth(IndexPage)

@@ -14,8 +14,8 @@ const CARD_OPTIONS = {
   iconStyle: 'solid' as const,
   style: {
     base: {
-      iconColor: '#6772e5',
-      color: '#6772e5',
+      iconColor: '#0F61A5',
+      color: '#0F61A5',
       fontWeight: '500',
       fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
       fontSize: '16px',
@@ -24,7 +24,7 @@ const CARD_OPTIONS = {
         color: '#fce883',
       },
       '::placeholder': {
-        color: '#6772e5',
+        color: '#0F61A5',
       },
     },
     invalid: {
@@ -131,7 +131,6 @@ const ElementsForm = () => {
           currency={config.CURRENCY}
           onChange={handleInputChange}
         />
-        <StripeTestCards />
         <fieldset className="elements-style">
           <legend>Your payment details:</legend>
           <input
@@ -166,7 +165,6 @@ const ElementsForm = () => {
         </button>
       </form>
       <PaymentStatus status={payment.status} />
-      <PrintObject content={payment} />
     </>
   )
 }

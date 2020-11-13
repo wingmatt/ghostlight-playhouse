@@ -1,12 +1,12 @@
 /* Variables */
 :root {
+  --color-primary: #0F61A5;
   --body-color: #fcfdfe;
-  --checkout-color: #8f6ed5;
-  --elements-color: #6772e5;
+  --elements-color: #0F61A5;
   --body-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     sans-serif;
-  --h1-color: #1a1f36;
-  --h2-color: #7b818a;
+  --h1-color: #0C0D0E;
+  --h2-color :#2A2933;
   --h3-color: #a3acb9;
   --radius: 6px;
   --container-width-max: 1280px;
@@ -33,15 +33,19 @@ body {
 }
 
 .container {
+  min-width: 50vw;
   max-width: var(--container-width-max);
   padding: 45px 25px;
-  display: flex;
-  flex-direction: row;
 }
 
 .page-container {
   padding-bottom: 60px;
   max-width: var(--page-width-max);
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 h1 {
@@ -68,7 +72,7 @@ h3 {
 }
 
 a {
-  color: var(--checkout-color);
+  color: var(--color-primary);
   text-decoration: none;
 }
 
@@ -78,14 +82,8 @@ header {
   padding-right: 48px;
 }
 
-.header-content {
-  position: sticky;
-  top: 45px;
-}
-
 .logo img {
-  height: 20px;
-  margin-bottom: 52px;
+  max-height: 100px;
 }
 
 ul,
@@ -165,6 +163,7 @@ button {
   transition: all 0.2s ease;
   display: block;
   width: 100%;
+  background: var(--color-primary);
 }
 button:disabled {
   opacity: 0.5;
@@ -183,22 +182,22 @@ button:disabled {
   box-shadow: 20px 20px 60px #464e9c, -20px -20px 60px #8896ff;
 }
 .checkout-style {
-  color: var(--checkout-color);
-  border: 1px solid var(--checkout-color);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
 }
 .checkout-style-background {
-  background: var(--checkout-color);
+  background: var(--color-primary);
   transition: box-shadow var(--transition-duration);
 }
 .card.checkout-style-background:hover {
   box-shadow: 20px 20px 60px #614b91, -20px -20px 60px #bd91ff;
 }
 .cart-style-background {
-  background: teal;
+  background: var(--color-primary);
   transition: box-shadow var(--transition-duration);
 }
 .card.cart-style-background:hover {
-  box-shadow: 20px 20px 60px teal, -20px -20px 60px teal;
+  box-shadow: 20px 20px 60px var(--color-primary), -20px -20px 60px var(--color-primary);
 }
 
 /* Products */

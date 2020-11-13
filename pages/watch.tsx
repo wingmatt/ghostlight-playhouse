@@ -1,21 +1,29 @@
 import { NextPage, GetServerSideProps } from 'next'
 import Layout from '../components/Layout'
-import { useFetchUser } from '../lib/user';
+import SubscribeCTA from '../components/SubscribeCTA';
+import Stream from '../components/Stream'
 import WithAuth from '../components/WithAuth';
 
+
 const WatchPage: NextPage = (props) => {
+  const loggedIn = (props.user)
+  const isSubscribed = props.user.permissions.includes('access:stream')
 
-  return (
-    <Layout user={props.user}>
-      <h1>Livestream</h1>
-
-
-        <>
-          <div id='wowza_player'></div>
-          <script id='player_embed' src='https://player.cloud.wowza.com/hosted/rjrbb1t0/wowza.js' type='text/javascript'></script>
-        </>
-    </Layout>
-  )
+    if (isSubscribed) {
+      return(
+        <Layout user={props.user} loggedIn={loggedIn}>
+          <h1>Watch Live Local Talent</h1>
+          <Stream/>
+        </Layout>
+      )
+    } else {
+      return(
+        <Layout user={props.user} loggedIn={loggedIn}>
+          <h1>Start Watching Live Local Talent</h1>
+          <SubscribeCTA user={props.user}/>
+        </Layout>
+      )
+    }
 }
 
 export default WithAuth(WatchPage)
