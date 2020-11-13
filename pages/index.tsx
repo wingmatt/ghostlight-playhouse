@@ -11,11 +11,11 @@ const IndexPage: NextPage = (props) => {
       <ul className="card-list">
         <li>
             <a className="card elements-style-background" href="/watch">
-              <h2 className="bottom">Watch Stream</h2>
+              <h2 className="bottom">Watch Now</h2>
             </a>
         </li>
         <li>
-          <Link href="/donate-with-elements">
+          <Link href="/donate">
             <a className="card cart-style-background">
               <h2 className="bottom">Donate to Ghostlight Playhouse</h2>
             </a>
