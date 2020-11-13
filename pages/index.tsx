@@ -6,7 +6,7 @@ import CheckAuth from '../components/CheckAuth'
 const IndexPage: NextPage = (props) => {
   const loggedIn = (props.user)
   return (
-    <Layout title="Home | Next.js + TypeScript Example" loggedIn={loggedIn}>
+    <Layout title="Stream Ghostlight Playhouse Events in Medford, Oregon" loggedIn={loggedIn}>
       <h1>Ghostlight Playhouse Stream</h1>
       <ul className="card-list">
         <li>
