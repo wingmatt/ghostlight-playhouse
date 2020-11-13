@@ -2,6 +2,7 @@ import { NextPage, GetServerSideProps } from 'next'
 import Layout from '../components/Layout'
 import SubscribeCTA from '../components/SubscribeCTA';
 import WithAuth from '../components/WithAuth';
+import Head from 'next/head'
 
 const WatchPage: NextPage = (props) => {
   const loggedIn = (props.user)
@@ -20,8 +21,11 @@ const WatchPage: NextPage = (props) => {
     } else {
       return(
         <Layout user={props.user} loggedIn={loggedIn}>
+          <Head>
+            <script src="https://js.stripe.com/v3/"></script>
+          </Head>
           <h1>Start Watching Live Local Talent</h1>
-          <SubscribeCTA/>
+          <SubscribeCTA user={props.user}/>
         </Layout>
       )
     }
