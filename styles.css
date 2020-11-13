@@ -3,7 +3,7 @@
   --color-primary: #0F61A5;
   --body-color: #fcfdfe;
   --elements-color: #0F61A5;
-  --body-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  --body-font-family: 'Roboto Slab',
     sans-serif;
   --h1-color: #0C0D0E;
   --h2-color :#2A2933;
@@ -41,6 +41,7 @@ body {
 .page-container {
   padding-bottom: 60px;
   max-width: var(--page-width-max);
+  margin: auto;
 }
 header {
   display: flex;
@@ -49,11 +50,12 @@ header {
 }
 
 h1 {
-  font-weight: 600;
+  font-family: "Smythe", sans-serif;
   color: var(--h1-color);
   margin: 6px 0 12px;
-  font-size: 27px;
+  font-size: 42px;
   line-height: 32px;
+  font-weight: 400;
 }
 
 h1 span.light {
@@ -69,6 +71,9 @@ h3 {
   font-size: 17px;
   color: var(--h3-color);
   margin: 8px 0;
+}
+hr {
+  margin: 2rem 1rem;
 }
 
 a {
@@ -97,7 +102,7 @@ li {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  padding-top: 64px;
+  padding-top: 2rem;
 }
 
 .card {
@@ -119,6 +124,8 @@ li {
 .card h2.bottom {
   position: absolute;
   bottom: 10px;
+  font-family: 'Smythe', sans-serif;
+  font-weight: 400;
 }
 
 .card img {

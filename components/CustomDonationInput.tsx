@@ -23,7 +23,7 @@ const CustomDonationInput = ({
   className,
 }: Props) => (
   <label>
-    Custom donation amount ({formatAmountForDisplay(min, currency)}-
+    How much would you like to donate today? ({formatAmountForDisplay(min, currency)}-
     {formatAmountForDisplay(max, currency)}):
     <input
       className={className}
