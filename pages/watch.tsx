@@ -6,8 +6,9 @@ import CheckAuth from "../components/CheckAuth";
 
 const WatchPage: NextPage = (props) => {
   const loggedIn = props.user;
+  let isSubscribed = false;
   if (loggedIn) {
-    const isSubscribed = props.user.permissions.includes("access:stream");
+    isSubscribed = props.user.permissions.includes("access:stream");
   }
 
   if (!loggedIn) {
