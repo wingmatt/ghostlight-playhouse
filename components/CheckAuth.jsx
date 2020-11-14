@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import auth0 from '../utils/auth0';
 import { fetchUser } from '../lib/user';
-import createLoginUrl from '../lib/url-helper';
 
 import jwt from 'jsonwebtoken'
 
