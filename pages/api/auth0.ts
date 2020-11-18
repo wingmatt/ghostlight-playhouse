@@ -23,6 +23,33 @@ const getAuth0Token = async function getAuth0Token() {
    })
 };
 
+export async function maybeRefreshAuth0Token(session, query) {
+  if ('refresh' in query) {
+    const options: AxiosRequestConfig = {
+      method: "POST",
+      url: `${process.env.AUTH0_OAUTH_DOMAIN}/oauth/token`,
+      data: {
+        grant_type: "refresh_token",
+        audience: `${process.env.AUTH0_MGMT_API_URL}/`,
+        client_id: process.env.AUTH0_CLIENT_ID,
+        client_secret: process.env.AUTH0_CLIENT_SECRET,
+        refresh_token: session.refreshToken,
+      },
+    };
+  
+    return await axios
+      .request(options)
+      .then(function (response) {
+        return response.data.access_token;
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  } else {
+    return session.accessToken;
+  }
+}
+
 const auth0Token = getAuth0Token();
 
 const Auth0UserFromEmail = async function Auth0UserFromEmail(

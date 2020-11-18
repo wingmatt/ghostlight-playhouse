@@ -5,7 +5,7 @@ export default initAuth0({
   clientId: process.env.AUTH0_CLIENT_ID,
   clientSecret: process.env.AUTH0_CLIENT_SECRET,
   audience: 'https://watch.ghostlightplayhouse.com/api/',
-  scope: 'openid profile access:stream',
+  scope: 'openid profile offline_access access:stream',
   redirectUri: `${process.env.URL_ROOT}/api/callback`,
   postLogoutRedirectUri: `${process.env.URL_ROOT}/`,
   session: {
