@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
 import { UserProvider } from '../lib/user';
 import NavAccount from './NavAccount';
 
@@ -32,8 +31,8 @@ const Layout = ({
           <img src="/logo.png" />
         </a>
         <nav>
+          <a href="/watch">Watch</a>
           <NavAccount user={loggedIn}/>
-        &nbsp;|&nbsp;<a href="/watch">Watch</a>
         </nav>
       </header>
       {children}
