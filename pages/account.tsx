@@ -5,7 +5,7 @@ import WithAuth from '../components/WithAuth';
 
 const Profile = ({ user }) => (
   <Layout user={user}>
-    <h1>Profile</h1>
+    <h1>Account Details</h1>
 
     <div>
       <h3>Profile (server rendered)</h3>
