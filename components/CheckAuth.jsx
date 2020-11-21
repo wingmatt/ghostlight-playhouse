@@ -29,7 +29,8 @@ export default function CheckAuth(InnerComponent) {
         const userData = {
           id: session.user.sub,
           email: session.user.name,
-          permissions: token.permissions
+          permissions: token.permissions,
+          stripe_customer: token['https://watch.ghostlightplayhouse.com/stripe_customer_id']
         }
         return { user: userData };
       })
