@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 
 const getStripeCustomerPortal = async (stripeCustomerId) => {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY_LIVE, {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: "2020-03-02",
   });
 
