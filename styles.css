@@ -48,6 +48,11 @@ header {
   align-items: center;
   justify-content: space-between;
 }
+header a:not(:last-of-type)::after {
+  content: " | ";
+  pointer-events: none;
+  color: #000;
+}
 
 h1 {
   font-family: "Smythe", sans-serif;

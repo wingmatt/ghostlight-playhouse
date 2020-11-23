@@ -5,9 +5,14 @@ const NavAccount = (props) => {
 
   if (props.user) {
     return (
-      <Link href="/api/logout">
-        <a>Logout</a>
-      </Link>
+      <>
+        <Link href="/account">
+          <a>Account</a>
+        </Link>
+        <Link href="/api/logout">
+          <a>Logout</a>
+        </Link>
+      </>
     );
   } else {
     return (
