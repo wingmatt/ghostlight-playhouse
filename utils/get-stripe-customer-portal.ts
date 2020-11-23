@@ -8,7 +8,7 @@ const getStripeCustomerPortal = async (stripeCustomerId) => {
   return await stripe.billingPortal.sessions
     .create({
       customer: stripeCustomerId,
-      return_url: "https://watch.ghostlightplayhouse.com/?refresh",
+      return_url: "https://watch.ghostlightplayhouse.com/account",
     })
     .then((response) => {
       return response.url;
