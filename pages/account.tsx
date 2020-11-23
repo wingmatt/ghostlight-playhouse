@@ -1,22 +1,14 @@
-import {GetServerSideProps} from 'next'
-import Layout from '../components/Layout';
-import WithAuth from '../components/WithAuth';
-import { useFetchUser } from '../lib/user';
+import Layout from "../components/Layout";
+import WithAuth from "../components/WithAuth";
 
-const Profile = ({ props }) => {
-  const { user, loading } = useFetchUser();
-
+const Profile = (props) => {
   return (
     <Layout user={props}>
-    <h1>Account Details</h1>
-
-    <div>
-      <h3>Profile (server rendered)</h3>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
-    </div>
-  </Layout>
-  )
-  
-  };
+      <h1>Account Details</h1>
+      Redirecting to your customer portal...
+      <a href={"/api/billing/"+props.user.stripe_customer}>Manage Billing</a>
+    </Layout>
+  );
+};
 
 export default WithAuth(Profile);
