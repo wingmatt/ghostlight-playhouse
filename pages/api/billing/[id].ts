@@ -5,7 +5,8 @@ export default async function billing(req, res) {
     query: {id},
   } = req
   await getStripeCustomerPortal(id).then((portalLink) => {
-    res.redirect(200, portalLink)
+    console.log(portalLink)
+    res.redirect(portalLink)
   }).catch((error)=> {
     res.status(400).json({ message: `Error: ${error}` })
   })
