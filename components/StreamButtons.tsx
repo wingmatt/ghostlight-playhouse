@@ -35,7 +35,6 @@ export default function StreamButtons() {
         todayPerformances = todayPerformances.concat(performanceLinks);
       }
     });
-    console.log(todayPerformances);
     return (
       <ul>
         {todayPerformances.map((link, index) => (
