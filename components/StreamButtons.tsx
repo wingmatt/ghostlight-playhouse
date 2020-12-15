@@ -38,10 +38,9 @@ export default function StreamButtons() {
     console.log(todayPerformances);
     return (
       <ul>
-        {todayPerformances.map((link) => {
-          <li><a href=""></a></li>
-        })}
-        
+        {todayPerformances.map((link, index) => (
+          <li key={`${index}_${link.linkUrl}_${link.linkText}`}><a href={link.linkUrl} target="blank">{link.linkText}</a></li>
+        ))}
       </ul>
     );
   }
