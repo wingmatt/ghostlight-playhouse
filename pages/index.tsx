@@ -1,4 +1,4 @@
-import { NextPage, GetServerSideProps } from "next";
+import { NextPage } from "next";
 import Layout from "../components/Layout";
 import SubscribeCTA from "../components/SubscribeCTA";
 import Stream from "../components/Stream";
