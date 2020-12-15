@@ -31,7 +31,6 @@ const Layout = ({
           <img src="/logo.png" />
         </a>
         <nav>
-          <a href="/watch">Watch</a>
           <NavAccount user={loggedIn}/>
         </nav>
       </header>
