@@ -1,29 +1,55 @@
-import { NextPage, GetServerSideProps } from 'next'
-import Link from 'next/link'
-import Layout from '../components/Layout'
-import CheckAuth from '../components/CheckAuth'
+import { NextPage, GetServerSideProps } from "next";
+import Layout from "../components/Layout";
+import SubscribeCTA from "../components/SubscribeCTA";
+import Stream from "../components/Stream";
+import StreamLinks from "../components/StreamLinks";
+import CheckAuth from "../components/CheckAuth";
 
 const IndexPage: NextPage = (props) => {
-  const loggedIn = (props.user)
-  return (
-    <Layout title="Stream Ghostlight Playhouse Events in Medford, Oregon" loggedIn={loggedIn}>
-      <h1>Ghostlight Playhouse Stream</h1>
-      <ul className="card-list">
-        <li>
-            <a className="card elements-style-background" href="/watch">
-              <h2 className="bottom">Watch Now</h2>
-            </a>
-        </li>
-        <li>
-          <Link href="/donate">
-            <a className="card cart-style-background">
-              <h2 className="bottom">Donate to Ghostlight Playhouse</h2>
-            </a>
-          </Link>
-        </li>
-      </ul>
-    </Layout>
-  )
-}
+  const loggedIn = props.user;
+  let isSubscribed = false;
+  if (loggedIn) {
+    isSubscribed = props.user.permissions.includes("access:stream");
+  }
 
-export default CheckAuth(IndexPage)
+  if (!loggedIn) {
+    return (
+      <Layout
+        title="Start Watching Live Local Talent | Ghostlight Playhouse"
+        loggedIn={loggedIn}
+      >
+        <h1>Start Watching Live Local Talent</h1>
+        <ol>
+          <li><a href="/api/login">Create a Ghostlight account here.</a></li>
+          <li>Come back to this page and add a subscription to your account.</li>
+          <li>Enjoy the show!</li>
+        </ol>
+      </Layout>
+    );
+  } else if (isSubscribed) {
+    return (
+      <Layout
+        title="Watch Live Local Talent | Ghostlight Playhouse"
+        user={props.user}
+        loggedIn={loggedIn}
+      >
+        <h1>Watch Live Local Talent</h1>
+        <Stream />
+        <StreamLinks />
+      </Layout>
+    );
+  } else {
+    return (
+      <Layout
+        title="Start Watching Live Local Talent | Ghostlight Playhouse"
+        user={props.user}
+        loggedIn={loggedIn}
+      >
+        <h1>Start Watching Live Local Talent</h1>
+        <SubscribeCTA user={props.user} />
+      </Layout>
+    );
+  }
+};
+
+export default CheckAuth(IndexPage);
