@@ -2,7 +2,7 @@ import { NextPage, GetServerSideProps } from "next";
 import Layout from "../components/Layout";
 import SubscribeCTA from "../components/SubscribeCTA";
 import Stream from "../components/Stream";
-import StreamButtons from "../components/StreamButtons";
+import StreamLinks from "../components/StreamLinks";
 import CheckAuth from "../components/CheckAuth";
 
 const WatchPage: NextPage = (props) => {
@@ -35,7 +35,7 @@ const WatchPage: NextPage = (props) => {
       >
         <h1>Watch Live Local Talent</h1>
         <Stream />
-        <StreamButtons />
+        <StreamLinks />
       </Layout>
     );
   } else {

@@ -18,7 +18,7 @@ export const ALL_PERFORMANCE_LINKS_QUERY = gql`
   }
 `;
 
-export default function StreamButtons() {
+export default function StreamLinks() {
   const { loading, error, data } = useQuery(ALL_PERFORMANCE_LINKS_QUERY);
   const today = new Date().toLocaleDateString("en-US");
   if (error) console.log(error);
@@ -36,9 +36,9 @@ export default function StreamButtons() {
       }
     });
     return (
-      <ul>
+      <ul className="stream_links">
         {todayPerformances.map((link, index) => (
-          <li key={`${index}_${link.linkUrl}_${link.linkText}`}>
+          <li key={`${index}_${link.linkUrl}_${link.linkText}`} className="stream_link">
             <a href={link.linkUrl} target="blank">
               {link.linkText}
             </a>
