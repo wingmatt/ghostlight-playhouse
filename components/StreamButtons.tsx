@@ -20,17 +20,28 @@ export const ALL_PERFORMANCE_LINKS_QUERY = gql`
 
 export default function StreamButtons() {
   const { loading, error, data } = useQuery(ALL_PERFORMANCE_LINKS_QUERY);
-  
+  const today = new Date().toLocaleDateString('en-US');
   if (error)
     return <div>Error loading buttons.</div>;
   if (loading)
     return <div>Loading</div>;
   if(data){
     const performances = data.products.edges;
-    console.log(performances);
+    let todayPerformances = [];
+    performances.forEach(performance => {
+      let performanceDate = performance.node.performanceDetails.performanceDate;
+      let performanceLinks = performance.node.performanceDetails.performanceLinks;
+      if (today == performanceDate) {
+        todayPerformances = todayPerformances.concat(performanceLinks);
+      }
+    });
+    console.log(todayPerformances);
     return (
       <ul>
-        <li></li>
+        {todayPerformances.map((link) => {
+          <li><a href=""></a></li>
+        })}
+        
       </ul>
     );
   }
