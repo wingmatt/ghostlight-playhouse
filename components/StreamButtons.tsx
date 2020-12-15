@@ -23,9 +23,7 @@ export default function StreamButtons() {
   const today = new Date().toLocaleDateString("en-US");
   if (error) console.log(error);
   if (loading)
-    return (
-      <img src="/loading.svg" alt="Loading" width="25px" height="25px"/>
-    );
+    return <img src="/loading.svg" alt="Loading" width="25px" height="25px" />;
   if (data) {
     const performances = data.products.edges;
     let todayPerformances = [];
