@@ -16,21 +16,23 @@ export const ALL_PERFORMANCE_LINKS_QUERY = gql`
       }
     }
   }
-  `;
+`;
 
 export default function StreamButtons() {
   const { loading, error, data } = useQuery(ALL_PERFORMANCE_LINKS_QUERY);
-  const today = new Date().toLocaleDateString('en-US');
-  if (error)
-    return <div>Error loading buttons.</div>;
+  const today = new Date().toLocaleDateString("en-US");
+  if (error) console.log(error);
   if (loading)
-    return <div>Loading</div>;
-  if(data){
+    return (
+      <img src="/loading.svg" alt="Loading" width="25px" height="25px"/>
+    );
+  if (data) {
     const performances = data.products.edges;
     let todayPerformances = [];
-    performances.forEach(performance => {
+    performances.forEach((performance) => {
       let performanceDate = performance.node.performanceDetails.performanceDate;
-      let performanceLinks = performance.node.performanceDetails.performanceLinks;
+      let performanceLinks =
+        performance.node.performanceDetails.performanceLinks;
       if (today == performanceDate) {
         todayPerformances = todayPerformances.concat(performanceLinks);
       }
@@ -38,10 +40,13 @@ export default function StreamButtons() {
     return (
       <ul>
         {todayPerformances.map((link, index) => (
-          <li key={`${index}_${link.linkUrl}_${link.linkText}`}><a href={link.linkUrl} target="blank">{link.linkText}</a></li>
+          <li key={`${index}_${link.linkUrl}_${link.linkText}`}>
+            <a href={link.linkUrl} target="blank">
+              {link.linkText}
+            </a>
+          </li>
         ))}
       </ul>
     );
   }
-    
 }
