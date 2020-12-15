@@ -1,6 +1,7 @@
 /* Variables */
 :root {
   --color-primary: #0F61A5;
+  --color-primary-light: #158DF1;
   --body-color: #fcfdfe;
   --elements-color: #0F61A5;
   --body-font-family: 'Roboto Slab',
@@ -15,6 +16,7 @@
 }
 
 body {
+  font-size: 18px;
   margin: 0;
   padding: 0;
   background: var(--body-color);
@@ -334,4 +336,27 @@ pre {
     box-shadow: none;
     bottom: 0;
   }
+}
+
+.stream_container {
+  margin: 2rem 0;
+}
+
+.stream_links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.stream_link a {
+  display: block;
+  margin: 1rem .5rem;
+  padding: 1rem 1.5rem;
+  background: var(--color-primary);
+  color: #fff;
+  transition: 200ms;
+}
+.stream_link a:hover {
+  background: #158DF1;
 }
