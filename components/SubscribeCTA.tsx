@@ -15,8 +15,8 @@ const SubscribeCTA = (props) => {
         {price: 'price_1HnBPzAlSgPwIalWb8KjnY5c', quantity: 1},
       ],
       mode: 'subscription',
-      successUrl: `${urlRoot}/watch/?refresh`,
-      cancelUrl: `${urlRoot}/watch`,
+      successUrl: `${urlRoot}/?refresh`,
+      cancelUrl: `${urlRoot}/`,
       customerEmail: props.user.email
     });
   };
