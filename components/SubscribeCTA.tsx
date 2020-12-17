@@ -10,6 +10,7 @@ const SubscribeCTA = (props) => {
     const stripe = Stripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
     const urlRoot = document.location.origin;
     const {error} = await stripe.redirectToCheckout({
+      clientReferenceId: props.user.stripe_customer,
       lineItems: [
         {price: 'price_1HnBPzAlSgPwIalWb8KjnY5c', quantity: 1},
       ],
