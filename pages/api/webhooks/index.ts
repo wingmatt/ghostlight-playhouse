@@ -2,7 +2,7 @@ import { buffer } from "micro";
 import Cors from "micro-cors";
 import { NextApiRequest, NextApiResponse } from "next";
 
-import updateSubscription from "../auth0"
+import updateSubscription from "../../../utils/auth0-stripe"
 
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {

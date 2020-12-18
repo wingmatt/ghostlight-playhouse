@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import auth0 from '../utils/auth0';
 import { fetchUser } from '../lib/user';
 import createLoginUrl from '../lib/url-helper';
-import { maybeRefreshAuth0Token}  from '../pages/api/auth0'
+import { maybeRefreshAuth0Token}  from '../utils/auth0-stripe'
 
 import jwt from 'jsonwebtoken'
 
