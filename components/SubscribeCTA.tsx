@@ -10,14 +10,15 @@ const SubscribeCTA = (props) => {
     const urlRoot = document.location.origin;
     await fetch(`${urlRoot}/api/checkout_sessions/subscribe`, {
       method: "post",
-      body: JSON.stringify({
-        customer: props.user.stripe_customer,
-        email: props.user.email,
-      }),
-    }).then(async (sessionId) => {
-      console.log(sessionId);
-      const { error } = await stripe.redirectToCheckout({
-        sessionId: sessionId.data
+      body: props.user.stripe_customer,
+      headers: {
+        Accept: "application/json",
+      },
+    }).then(async (response) => {
+      await response.text().then(async (sessionId) => {
+        const { error } = await stripe.redirectToCheckout({
+          sessionId: sessionId,
+        });
       });
     });
   };
