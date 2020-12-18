@@ -21,6 +21,7 @@ export default async function handler(
         line_items: [
           {price: process.env.SUBSCRIPTION_PRICE_ID, quantity: 1},
         ],
+        allow_promotion_codes: true,
         success_url: `${req.headers.origin}/?refresh`,
         cancel_url: `${req.headers.origin}/`,
       }
