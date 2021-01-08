@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import Layout from "../components/Layout";
 import SubscribeCTA from "../components/SubscribeCTA";
 import Stream from "../components/Stream";
+import Preroll from "../components/Preroll";
 import StreamLinks from "../components/StreamLinks";
 import CheckAuth from "../components/CheckAuth";
 
@@ -34,7 +35,7 @@ const IndexPage: NextPage = (props) => {
         loggedIn={loggedIn}
       >
         <h1>Watch Live Local Talent</h1>
-        <Stream />
+        <Preroll />
         <StreamLinks />
       </Layout>
     );
