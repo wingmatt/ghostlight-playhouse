@@ -27,7 +27,7 @@ const SubscribeCTA = (props) => {
         <script src="https://js.stripe.com/v3/" key="stripe"></script>
       </Head>
       <button type="submit">
-        Sign Up and Start Watching
+        Join the Best Seat Club to watch now!
       </button>
     </form>
   );
