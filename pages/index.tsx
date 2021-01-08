@@ -47,6 +47,7 @@ const IndexPage: NextPage = (props) => {
       >
         <h1>Start Watching Live Local Talent</h1>
         <SubscribeCTA user={props.user} />
+        <p>If you just subscribed and are still seeing this, try refreshing your browser.</p>
       </Layout>
     );
   }

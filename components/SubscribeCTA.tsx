@@ -1,23 +1,25 @@
-import Head from 'next/head'
+import Head from "next/head";
 
 const SubscribeCTA = (props) => {
-
   const handleCheckout: React.FormEventHandler<HTMLFormElement> = async (
     event
   ) => {
     event.preventDefault();
-    
+
     const stripe = Stripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
     const urlRoot = document.location.origin;
-    const {error} = await stripe.redirectToCheckout({
-      clientReferenceId: props.user.stripe_customer,
-      lineItems: [
-        {price: 'price_1HnBPzAlSgPwIalWb8KjnY5c', quantity: 1},
-      ],
-      mode: 'subscription',
-      successUrl: `${urlRoot}/?refresh`,
-      cancelUrl: `${urlRoot}/`,
-      customerEmail: props.user.email
+    await fetch(`${urlRoot}/api/checkout_sessions/subscribe`, {
+      method: "post",
+      body: props.user.stripe_customer,
+      headers: {
+        Accept: "application/json",
+      },
+    }).then(async (response) => {
+      await response.text().then(async (sessionId) => {
+        const { error } = await stripe.redirectToCheckout({
+          sessionId: sessionId,
+        });
+      });
     });
   };
 
