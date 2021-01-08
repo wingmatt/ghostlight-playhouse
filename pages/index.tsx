@@ -20,7 +20,7 @@ const IndexPage: NextPage = (props) => {
       >
         <h1>Start Watching Live Local Talent</h1>
         <ol>
-          <li><a href="/api/login">Create a Ghostlight account here.</a></li>
+          <li><a href="/api/login">Create your Best Seat Club account here.</a></li>
           <li>Login and add a subscription to your account.</li>
           <li>Enjoy the show!</li>
         </ol>
