@@ -35,7 +35,7 @@ const IndexPage: NextPage = (props) => {
         loggedIn={loggedIn}
       >
         <h1>Watch Live Local Talent</h1>
-        <Preroll />
+        <Stream />
         <StreamLinks />
       </Layout>
     );
