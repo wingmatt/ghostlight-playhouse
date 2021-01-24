@@ -28,10 +28,10 @@ export default function StreamLinks() {
     const performances = data.products.edges;
     let todayPerformances = [];
     performances.forEach((performance) => {
-      let performanceDate = performance.node.performanceDetails.performanceDate;
+      let performanceDate = performance.node.performanceDetails;
       let performanceLinks =
         performance.node.performanceDetails.performanceLinks;
-      if (today == performanceDate) {
+      if (today == performanceDate || "0" + today ==  performanceDate) {
         todayPerformances = todayPerformances.concat(performanceLinks);
       }
     });
