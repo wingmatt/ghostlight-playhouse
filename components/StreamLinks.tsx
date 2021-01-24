@@ -31,7 +31,7 @@ export default function StreamLinks() {
       let performanceDate = performance.node.performanceDetails;
       let performanceLinks =
         performance.node.performanceDetails.performanceLinks;
-      if (today == performanceDate || "0" + today ==  performanceDate) {
+      if (performanceLinks) {
         todayPerformances = todayPerformances.concat(performanceLinks);
       }
     });
