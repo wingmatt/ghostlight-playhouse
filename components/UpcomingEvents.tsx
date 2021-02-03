@@ -15,7 +15,7 @@ export const UPCOMING_EVENTS_QUERY = gql`
   }
 `;
 
-export default function StreamLinks() {
+export default function UpcomingEvents() {
   const { loading, error, data } = useQuery(UPCOMING_EVENTS_QUERY);
   if (error) console.log(error);
   if (loading)
