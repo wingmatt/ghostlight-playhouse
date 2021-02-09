@@ -15,6 +15,24 @@ export const UPCOMING_EVENTS_QUERY = gql`
   }
 `;
 
+/*
+Sample Response:
+"data": {
+    "events": {
+      "edges": [
+        {
+          "node": {
+            "id": "cG9zdDo0Mzc=",
+            "startDate": "2021-02-11 00:00:00",
+            "title": "We’re doing something",
+            "uri": "/event/were-doing-something/"
+          }
+        }
+      ]
+    }
+  }
+*/
+
 export default function UpcomingEvents() {
   const { loading, error, data } = useQuery(UPCOMING_EVENTS_QUERY);
   if (error) console.log(error);
