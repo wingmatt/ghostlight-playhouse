@@ -366,3 +366,13 @@ pre {
   color: #fff;
   background: #158DF1;
 }
+
+.video-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.video-list li {
+  flex: 0 1 640px;
+  margin: 1rem;
+}

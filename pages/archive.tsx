@@ -11,7 +11,7 @@ const Archive = (props) => {
   return (
     <Layout title="Video Archive | Ghostlight Playhouse" loggedIn={loggedIn}>
       <h1>Video Archive</h1>
-      <ul>
+      <ul className="video-list">
         {videoUrls.map((videoUrl, index) => (
           <li key={index}><Video videoUrl={videoUrl}/></li>
         ))}
