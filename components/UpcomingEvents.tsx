@@ -39,25 +39,40 @@ export default function UpcomingEvents() {
   if (loading)
     return <img src="/loading.svg" alt="Loading" width="25px" height="25px" />;
   if (data) {
-    const events = data.products.edges;
+    const events = data.events.edges;
     const dateOptions = {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
-      day: 'numeric',
-      timeZone: 'PST',
-      timeZoneName: 'short'
+      day: 'numeric'
     }
-    return (
-      <ul className="upcoming_events">
-        {events.map((event, index) => (
-          <li key={`${index}_${event.linkUrl}_${event.linkText}`} className="upcoming_event">
-            <a href={"https://ghostlightplayhouse.com" + event.linkUrl} target="blank">
-              {event.stateDate.toLocaleDateString('en-US', dateOptions)}: {event.title}
-            </a>
-          </li>
-        ))}
-      </ul>
-    );
+    console.log(events.length);
+    if (events.length > 0) {
+      return (
+        <figure className="upcoming-events">
+          <h2>Upcoming Events</h2>
+          <ul className="event-list">
+            {events.map((event) => {
+              let eventDate: Date = new Date(Date.parse(event.node.startDate));
+              return(
+                <li key={event.node.id} className="upcoming_event">
+                  <a href={"https://ghostlightplayhouse.com" + event.node.uri} target="_blank">
+                    {eventDate.toLocaleDateString('en-US', dateOptions)}: {event.node.title}
+                  </a>
+                </li>
+              )
+            })}
+          </ul>
+        </figure>
+      )
+    }
+    else {
+      return (
+      <figure className="upcoming-events">
+        <h2>More events coming soon</h2>
+        <a href="https://www.facebook.com/GhostlightPlayhouse">Follow us on Facebook to stay in the loop!</a>
+      </figure>
+      );
+    }
   }
 }
