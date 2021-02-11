@@ -5,6 +5,7 @@ import Stream from "../components/Stream";
 import Preroll from "../components/Preroll";
 import StreamLinks from "../components/StreamLinks";
 import CheckAuth from "../components/CheckAuth";
+import UpcomingEvents from "../components/UpcomingEvents";
 
 const IndexPage: NextPage = (props) => {
   const loggedIn = props.user;
@@ -25,6 +26,7 @@ const IndexPage: NextPage = (props) => {
           <li>Login and add a subscription to your account.</li>
           <li>Enjoy the show!</li>
         </ol>
+        <UpcomingEvents/>
       </Layout>
     );
   } else if (isSubscribed) {
@@ -37,6 +39,7 @@ const IndexPage: NextPage = (props) => {
         <h1>Watch Live Local Talent</h1>
         <Stream />
         <StreamLinks />
+        <UpcomingEvents/>
       </Layout>
     );
   } else {
@@ -49,6 +52,7 @@ const IndexPage: NextPage = (props) => {
         <h1>Start Watching Live Local Talent</h1>
         <SubscribeCTA user={props.user} />
         <p>If you just subscribed and are still seeing this, try refreshing your browser.</p>
+        <UpcomingEvents/>
       </Layout>
     );
   }
