@@ -2,7 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 
 export const UPCOMING_EVENTS_QUERY = gql`
   query UpcomingEvents {
-    events {
+    events (first: 3, where: {orderby: {field: DATE, order: ASC}}) {
       edges {
         node {
           id
@@ -26,7 +26,9 @@ export default function UpcomingEvents() {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric'
     }
     console.log(events.length);
     if (events.length > 0) {
