@@ -382,4 +382,6 @@ pre {
 .video-list li {
   flex: 0 1 500px;
   margin: 1rem;
+figure {
+  margin: 2rem 0;
 }
