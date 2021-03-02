@@ -49,7 +49,14 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
+@media screen and (max-width: 630px) {
+  header {
+    justify-content: center;
+  }
+}
+
 header a:not(:last-of-type)::after {
   content: " | ";
   pointer-events: none;
@@ -367,6 +374,14 @@ pre {
   background: #158DF1;
 }
 
+.video-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.video-list li {
+  flex: 0 1 500px;
+  margin: 1rem;
 figure {
   margin: 2rem 0;
 }
