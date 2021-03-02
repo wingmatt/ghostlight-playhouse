@@ -373,6 +373,6 @@ pre {
   justify-content: center;
 }
 .video-list li {
-  flex: 0 1 640px;
+  flex: 0 1 500px;
   margin: 1rem;
 }
