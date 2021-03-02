@@ -6,6 +6,8 @@ const NavAccount = (props) => {
   if (props.user) {
     return (
       <>
+        <a href="/">Watch Live</a>
+        <a href="/archive">Archive</a>
         <a href="/account">Account</a>
         <Link href="/api/logout">
           <a>Logout</a>
