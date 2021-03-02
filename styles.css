@@ -366,3 +366,7 @@ pre {
   color: #fff;
   background: #158DF1;
 }
+
+figure {
+  margin: 2rem 0;
+}
