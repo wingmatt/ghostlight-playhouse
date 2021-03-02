@@ -51,7 +51,7 @@ header {
   justify-content: space-between;
   flex-wrap: wrap;
 }
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 630px) {
   header {
     justify-content: center;
   }
