@@ -1,6 +1,7 @@
 import Layout from "../components/Layout";
 import WithAuth from "../components/WithAuth";
 import Video from "../components/Video";
+import SubscribeCTA from "../components/SubscribeCTA";
 
 const Archive = (props) => {
   const loggedIn = props.user;
@@ -34,21 +35,31 @@ const Archive = (props) => {
       "https://www.youtube.com/watch?v=hG2fILyMlGg"
     ]
   };
-
-  return (
+  let isSubscribed = false;
+  isSubscribed = props.user.permissions.includes("access:stream");
+  if (isSubscribed) return (
+      <Layout title="Video Archive | Ghostlight Playhouse" loggedIn={loggedIn}>
+        <h1>Video Archive</h1>
+        
+          {Object.keys(videos).map((category, index) => (
+            <>
+              <h2>{category}</h2>
+              <ul className="video-list">
+                {videos[category].map((videoUrl, index) => (
+                  <li key={index}><Video videoUrl={videoUrl}/></li>
+                ))}
+              </ul>
+            </>
+          ))}
+        
+      </Layout>
+    );
+   else return (
     <Layout title="Video Archive | Ghostlight Playhouse" loggedIn={loggedIn}>
       <h1>Video Archive</h1>
       
-        {Object.keys(videos).map((category, index) => (
-          <>
-            <h2>{category}</h2>
-            <ul className="video-list">
-              {videos[category].map((videoUrl, index) => (
-                <li key={index}><Video videoUrl={videoUrl}/></li>
-              ))}
-            </ul>
-          </>
-        ))}
+        <p>Once you have an active subscription, you can view past shows here.</p>
+        <SubscribeCTA user={props.user} />
       
     </Layout>
   );
