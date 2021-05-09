@@ -38,7 +38,6 @@ const IndexPage: NextPage = (props) => {
       >
         <h1>Watch Live Local Talent</h1>
         <Stream />
-        <StreamLinks />
         <UpcomingEvents/>
       </Layout>
     );
